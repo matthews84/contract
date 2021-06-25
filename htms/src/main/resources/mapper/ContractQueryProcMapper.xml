@@ -1,0 +1,23 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whxisoft.mapper.ContractQueryProcMapper">
+    <select id="getContract" parameterType="ContractQueryProc" statementType="CALLABLE" resultType="CmContract">
+        {
+        call P_HS_HT_CONTRACTQUERY(
+        #{contractInfo,mode=IN,jdbcType=NVARCHAR},
+        #{startRowNumber, mode=IN,jdbcType=NVARCHAR},
+        #{resInfo,mode=OUT,jdbcType=INTEGER}
+        )
+        }
+    </select>
+
+    <select id="getContractAndItem" resultType="ContractAndItem">
+        select t1.GUID,t1.strContractID,t1.strContractName,t1.dblTotalCurrency,t.RowGUID,t.strCode,t.strName,t.strMeasureUnit,t.dblQuantity,t.dblPriceRMB,t.dblSumRMB
+        from HT_CM_Contract_Item t left join HT_CM_Contract t1 on t.GUID = t1.GUID where t.dblQuantity is not null and t.dblPriceRMB is not null and t.dblSumRMB is not null
+        <if test="sql != null and sql != ''">
+            ${sql}
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,147 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whxisoft.mapper.SmUserMapper">
+    <select id="getUserByAccount" resultType="SmUser">
+        select * from IDM_SM_USER where username = #{username}
+    </select>
+
+    <select id="getAll" resultType="SmUser">
+        select * from IDM_SM_USER
+    </select>
+
+    <select id="getByCond" resultType="SmUser">
+        select * from idm_sm_user
+        <where>
+            <if test="search!=null and search!=''">
+                ${search}
+            </if>
+        </where>
+    </select>
+
+    <!-- 新增SmUser -->
+    <insert id="save" parameterType="SmUser" useGeneratedKeys="true" keyProperty="pk_user" >
+        insert into IDM_SM_USER
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="pk_user != null">pk_user,</if>
+            <if test="usercode != null">usercode,</if>
+            <if test="username != null">username,</if>
+            <if test="realname != null">realname,</if>
+            <if test="password != null">password,</if>
+            <if test="accountcode != null">accountcode,</if>
+            <if test="accountname != null">accountname,</if>
+            <if test="startdate != null">startdate,</if>
+            <if test="failuredate != null">failuredate,</if>
+            <if test="usertype != null">usertype,</if>
+            <if test="pk_role != null">pk_role,</if>
+            <if test="rolename != null">rolename,</if>
+            <if test="phone != null">phone,</if>
+            <if test="email != null">email,</if>
+            <if test="sex != null">sex,</if>
+            <if test="age != null">age,</if>
+            <if test="birthday != null">birthday,</if>
+            <if test="logindate != null">logindate,</if>
+            <if test="status != null">status,</if>
+            <if test="memo != null">memo,</if>
+            <if test="dr != null">dr,</if>
+            <if test="ts != null">ts,</if>
+            <if test="dept != null">dept,</if>
+            <if test="idmdef2 != null">idmdef2,</if>
+            <if test="idmdef3 != null">idmdef3,</if>
+            <if test="idmdef4 != null">idmdef4,</if>
+            <if test="idmdef5 != null">idmdef5,</if>
+            <if test="idmdef6 != null">idmdef6,</if>
+            <if test="idmdef7 != null">idmdef7,</if>
+            <if test="idmdef8 != null">idmdef8,</if>
+            <if test="idmdef9 != null">idmdef9,</if>
+            <if test="idmdef10 != null">idmdef10,</if>
+        </trim>
+        values
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="pk_user != null">#{pk_user},</if>
+            <if test="usercode != null">#{usercode},</if>
+            <if test="username != null">#{username},</if>
+            <if test="realname != null">#{realname},</if>
+            <if test="password != null">#{password},</if>
+            <if test="accountcode != null">#{accountcode},</if>
+            <if test="accountname != null">#{accountname},</if>
+            <if test="startdate != null">#{startdate},</if>
+            <if test="failuredate != null">#{failuredate},</if>
+            <if test="usertype != null">#{usertype},</if>
+            <if test="pk_role != null">#{pk_role},</if>
+            <if test="rolename != null">#{rolename},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="email != null">#{email},</if>
+            <if test="sex != null">#{sex},</if>
+            <if test="age != null">#{age},</if>
+            <if test="birthday != null">#{birthday},</if>
+            <if test="logindate != null">#{logindate},</if>
+            <if test="status != null">#{status},</if>
+            <if test="memo != null">#{memo},</if>
+            <if test="dr != null">#{dr},</if>
+            <if test="ts != null">#{ts},</if>
+            <if test="dept != null">#{dept},</if>
+            <if test="idmdef2 != null">#{idmdef2},</if>
+            <if test="idmdef3 != null">#{idmdef3},</if>
+            <if test="idmdef4 != null">#{idmdef4},</if>
+            <if test="idmdef5 != null">#{idmdef5},</if>
+            <if test="idmdef6 != null">#{idmdef6},</if>
+            <if test="idmdef7 != null">#{idmdef7},</if>
+            <if test="idmdef8 != null">#{idmdef8},</if>
+            <if test="idmdef9 != null">#{idmdef9},</if>
+            <if test="idmdef10 != null">#{idmdef10},</if>
+        </trim>
+    </insert >
+
+    <!-- 修改SmUser -->
+    <update id="update" parameterType="SmUser">
+        update IDM_SM_USER
+        <set>
+            <if test="usercode!=null">usercode = #{usercode},</if>
+            <if test="username!=null">username = #{username},</if>
+            <if test="realname!=null">realname = #{realname},</if>
+            <if test="password!=null">password = #{password},</if>
+            <if test="accountcode!=null">accountcode = #{accountcode},</if>
+            <if test="startdate!=null">startdate = #{startdate},</if>
+            <if test="failuredate!=null">failuredate = #{failuredate},</if>
+            <if test="usertype!=null">usertype = #{usertype},</if>
+            <if test="pk_role!=null">pk_role = #{pk_role},</if>
+            <if test="rolename!=null">rolename = #{rolename},</if>
+            <if test="phone!=null">phone = #{phone},</if>
+            <if test="email!=null">email = #{email},</if>
+            <if test="sex!=null">sex = #{sex},</if>
+            <if test="age!=null">age = #{age},</if>
+            <if test="birthday!=null">birthday = #{birthday},</if>
+            <if test="logindate!=null">logindate = #{logindate},</if>
+            <if test="status!=null">status = #{status},</if>
+            <if test="memo!=null">memo = #{memo},</if>
+            <if test="dr!=null">dr = #{dr},</if>
+            <if test="ts!=null">ts = #{ts},</if>
+            <if test="dept!=null">dept = #{dept},</if>
+            <if test="idmdef2!=null">idmdef2 = #{idmdef2},</if>
+            <if test="idmdef3!=null">idmdef3 = #{idmdef3},</if>
+            <if test="idmdef4!=null">idmdef4 = #{idmdef4},</if>
+            <if test="idmdef5!=null">idmdef5 = #{idmdef5},</if>
+            <if test="idmdef6!=null">idmdef6 = #{idmdef6},</if>
+            <if test="idmdef7!=null">idmdef7 = #{idmdef7},</if>
+            <if test="idmdef8!=null">idmdef8 = #{idmdef8},</if>
+            <if test="idmdef9!=null">idmdef9 = #{idmdef9},</if>
+            <if test="idmdef10!=null">idmdef10 = #{idmdef10},</if>
+        </set>
+        where pk_user = #{pk_user}
+    </update>
+
+    <select id="getUsername" resultType="SmUser">
+        select * from idm_sm_user where username = #{username}
+    </select>
+
+    <delete id="delete">
+        delete from idm_sm_user where pk_user = #{ids}
+    </delete>
+
+    <!--检验用户名是否存在-->
+    <select id="cheakUsername"  resultType="int">
+        select count(*) from IDM_SM_USER where  USERNAME= #{username}
+    </select>
+</mapper>

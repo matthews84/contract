@@ -1,0 +1,135 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whxisoft.mapper.SmMenuMapper">
+    <!--查询目录或者菜单-->
+    <select id="getMenuBtn" resultType="SmMenu"  parameterType="String">
+        select * from IDM_SM_MENU
+        <where>
+            <if test="_parameter!=null and _parameter!=''">
+                LEV='${_parameter}'
+            </if>
+        </where>
+        order by SORT
+    </select>
+
+    <!--查询按钮-->
+    <select id="getBtn" resultType="SmMenu"  parameterType="String">
+        select * from IDM_SM_MENU
+        <where>
+            <if test="_parameter!=null and _parameter!=''">
+                PCODE='${_parameter}'
+            </if>
+        </where>
+        order by SORT
+    </select>
+
+    <!--查询所有的菜单-->
+    <select id="getAll" resultType="SmMenu">
+            select * from IDM_SM_MENU
+    </select>
+
+    <select id="getByCond" resultType="SmMenu">
+        select * from IDM_SM_MENU
+        <where>
+            <if test="search!=null and search!=''">
+                ${search}
+            </if>
+        </where>
+        order by sort
+    </select>
+
+    <!-- 新增SmMenu -->
+    <insert id="save" parameterType="SmMenu">
+        insert into idm_sm_menu
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="pk_menu != null">pk_menu,</if>
+            <if test="code != null">code,</if>
+            <if test="name != null">name,</if>
+            <if test="pcode != null">pcode,</if>
+            <if test="menupath != null">menupath,</if>
+            <if test="lev != null">lev,</if>
+            <if test="sort != null">sort,</if>
+            <if test="menuimg != null">menuimg,</if>
+            <if test="btnlabel != null">btnlabel,</if>
+            <if test="btnjs != null">btnjs,</if>
+            <if test="type != null">type,</if>
+            <if test="enabled != null">enabled,</if>
+            <if test="memo != null">memo,</if>
+            <if test="dr != null">dr,</if>
+            <if test="ts != null">ts,</if>
+            <if test="idmdef1 != null">idmdef1,</if>
+            <if test="idmdef2 != null">idmdef2,</if>
+            <if test="idmdef3 != null">idmdef3,</if>
+            <if test="idmdef4 != null">idmdef4,</if>
+            <if test="idmdef5 != null">idmdef5,</if>
+            <if test="idmdef6 != null">idmdef6,</if>
+            <if test="idmdef7 != null">idmdef7,</if>
+            <if test="idmdef8 != null">idmdef8,</if>
+            <if test="idmdef9 != null">idmdef9,</if>
+            <if test="idmdef10 != null">idmdef10,</if>
+        </trim>
+        values
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="pk_menu != null">#{pk_menu},</if>
+            <if test="code != null">#{code},</if>
+            <if test="name != null">#{name},</if>
+            <if test="pcode != null">#{pcode},</if>
+            <if test="menupath != null">#{menupath},</if>
+            <if test="lev != null">#{lev},</if>
+            <if test="sort != null">#{sort},</if>
+            <if test="menuimg != null">#{menuimg},</if>
+            <if test="btnlabel != null">#{btnlabel},</if>
+            <if test="btnjs != null">#{btnjs},</if>
+            <if test="type != null">#{type},</if>
+            <if test="enabled != null">#{enabled},</if>
+            <if test="memo != null">#{memo},</if>
+            <if test="dr != null">#{dr},</if>
+            <if test="ts != null">#{ts},</if>
+            <if test="idmdef1 != null">#{idmdef1},</if>
+            <if test="idmdef2 != null">#{idmdef2},</if>
+            <if test="idmdef3 != null">#{idmdef3},</if>
+            <if test="idmdef4 != null">#{idmdef4},</if>
+            <if test="idmdef5 != null">#{idmdef5},</if>
+            <if test="idmdef6 != null">#{idmdef6},</if>
+            <if test="idmdef7 != null">#{idmdef7},</if>
+            <if test="idmdef8 != null">#{idmdef8},</if>
+            <if test="idmdef9 != null">#{idmdef9},</if>
+            <if test="idmdef10 != null">#{idmdef10},</if>
+        </trim>
+    </insert>
+
+    <!-- 修改SmMenu -->
+    <update id="update" parameterType="SmMenu">
+        update idm_sm_menu
+        <set>
+            <if test="code!=null">code = #{code},</if>
+            <if test="name!=null">name = #{name},</if>
+            <if test="pcode!=null">pcode = #{pcode},</if>
+            <if test="menupath!=null">menupath = #{menupath},</if>
+            <if test="lev!=null">lev = #{lev},</if>
+            <if test="sort!=null">sort = #{sort},</if>
+            <if test="menuimg!=null">menuimg = #{menuimg},</if>
+            <if test="btnlabel!=null">btnlabel = #{btnlabel},</if>
+            <if test="btnjs!=null">btnjs = #{btnjs},</if>
+            <if test="type!=null">type = #{type},</if>
+            <if test="enabled!=null">enabled = #{enabled},</if>
+            <if test="memo!=null">memo = #{memo},</if>
+            <if test="dr!=null">dr = #{dr},</if>
+            <if test="ts!=null">ts = #{ts},</if>
+            <if test="idmdef1!=null">idmdef1 = #{idmdef1},</if>
+            <if test="idmdef2!=null">idmdef2 = #{idmdef2},</if>
+            <if test="idmdef3!=null">idmdef3 = #{idmdef3},</if>
+            <if test="idmdef4!=null">idmdef4 = #{idmdef4},</if>
+            <if test="idmdef5!=null">idmdef5 = #{idmdef5},</if>
+            <if test="idmdef6!=null">idmdef6 = #{idmdef6},</if>
+            <if test="idmdef7!=null">idmdef7 = #{idmdef7},</if>
+            <if test="idmdef8!=null">idmdef8 = #{idmdef8},</if>
+            <if test="idmdef9!=null">idmdef9 = #{idmdef9},</if>
+            <if test="idmdef10!=null">idmdef10 = #{idmdef10},</if>
+        </set>
+        where pk_menu = #{pk_menu}
+    </update>
+
+</mapper>

@@ -1,0 +1,489 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whxisoft.mapper.CustomerMapper">
+    <!--查询所有供应商-->
+    <select id="getAll" resultType="Customer">
+        select * from ht_customer
+    </select>
+
+    <!-- 新增customer -->
+    <insert id="save" parameterType="Customer">
+        insert into ht_customer
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="cCusCode != null">cCusCode,</if>
+            <if test="cCusName != null">cCusName,</if>
+            <if test="cCusAbbName != null">cCusAbbName,</if>
+            <if test="cCCCode != null">cCCCode,</if>
+            <if test="cDCCode != null">cDCCode,</if>
+            <if test="cTrade != null">cTrade,</if>
+            <if test="cCusAddress != null">cCusAddress,</if>
+            <if test="cCusPostCode != null">cCusPostCode,</if>
+            <if test="cCusRegCode != null">cCusRegCode,</if>
+            <if test="cCusBank != null">cCusBank,</if>
+            <if test="cCusAccount != null">cCusAccount,</if>
+            <if test="dCusDevDate != null">dCusDevDate,</if>
+            <if test="cCusLPerson != null">cCusLPerson,</if>
+            <if test="cCusEmail != null">cCusEmail,</if>
+            <if test="cCusPerson != null">cCusPerson,</if>
+            <if test="cCusPhone != null">cCusPhone,</if>
+            <if test="cCusFax != null">cCusFax,</if>
+            <if test="cCusBP != null">cCusBP,</if>
+            <if test="cCusHand != null">cCusHand,</if>
+            <if test="cCusPPerson != null">cCusPPerson,</if>
+            <if test="iCusDisRate != null">iCusDisRate,</if>
+            <if test="cCusCreGrade != null">cCusCreGrade,</if>
+            <if test="iCusCreLine != null">iCusCreLine,</if>
+            <if test="iCusCreDate != null">iCusCreDate,</if>
+            <if test="cCusPayCond != null">cCusPayCond,</if>
+            <if test="cCusOAddress != null">cCusOAddress,</if>
+            <if test="cCusOType != null">cCusOType,</if>
+            <if test="cCusHeadCode != null">cCusHeadCode,</if>
+            <if test="cCusWhCode != null">cCusWhCode,</if>
+            <if test="cCusDepart != null">cCusDepart,</if>
+            <if test="iARMoney != null">iARMoney,</if>
+            <if test="dLastDate != null">dLastDate,</if>
+            <if test="iLastMoney != null">iLastMoney,</if>
+            <if test="dLRDate != null">dLRDate,</if>
+            <if test="iLRMoney != null">iLRMoney,</if>
+            <if test="dEndDate != null">dEndDate,</if>
+            <if test="iFrequency != null">iFrequency,</if>
+            <if test="cCusDefine1 != null">cCusDefine1,</if>
+            <if test="cCusDefine2 != null">cCusDefine2,</if>
+            <if test="cCusDefine3 != null">cCusDefine3,</if>
+            <if test="iCostGrade != null">iCostGrade,</if>
+            <if test="cCreatePerson != null">cCreatePerson,</if>
+            <if test="cModifyPerson != null">cModifyPerson,</if>
+            <if test="dModifyDate != null">dModifyDate,</if>
+            <if test="cRelVendor != null">cRelVendor,</if>
+            <if test="iId != null">iId,</if>
+            <if test="cPriceGroup != null">cPriceGroup,</if>
+            <if test="cOfferGrade != null">cOfferGrade,</if>
+            <if test="iOfferRate != null">iOfferRate,</if>
+            <if test="cCusDefine4 != null">cCusDefine4,</if>
+            <if test="cCusDefine5 != null">cCusDefine5,</if>
+            <if test="cCusDefine6 != null">cCusDefine6,</if>
+            <if test="cCusDefine7 != null">cCusDefine7,</if>
+            <if test="cCusDefine8 != null">cCusDefine8,</if>
+            <if test="cCusDefine9 != null">cCusDefine9,</if>
+            <if test="cCusDefine10 != null">cCusDefine10,</if>
+            <if test="cCusDefine11 != null">cCusDefine11,</if>
+            <if test="cCusDefine12 != null">cCusDefine12,</if>
+            <if test="cCusDefine13 != null">cCusDefine13,</if>
+            <if test="cCusDefine14 != null">cCusDefine14,</if>
+            <if test="cCusDefine15 != null">cCusDefine15,</if>
+            <if test="cCusDefine16 != null">cCusDefine16,</if>
+            <if test="cInvoiceCompany != null">cInvoiceCompany,</if>
+            <if test="bCredit != null">bCredit,</if>
+            <if test="bCreditDate != null">bCreditDate,</if>
+            <if test="bCreditByHead != null">bCreditByHead,</if>
+            <if test="bLicenceDate != null">bLicenceDate,</if>
+            <if test="dLicenceSDate != null">dLicenceSDate,</if>
+            <if test="dLicenceEDate != null">dLicenceEDate,</if>
+            <if test="iLicenceADays != null">iLicenceADays,</if>
+            <if test="bBusinessDate != null">bBusinessDate,</if>
+            <if test="dBusinessSDate != null">dBusinessSDate,</if>
+            <if test="dBusinessEDate != null">dBusinessEDate,</if>
+            <if test="iBusinessADays != null">iBusinessADays,</if>
+            <if test="bProxy != null">bProxy,</if>
+            <if test="dProxySDate != null">dProxySDate,</if>
+            <if test="dProxyEDate != null">dProxyEDate,</if>
+            <if test="iProxyADays != null">iProxyADays,</if>
+            <if test="cMemo != null">cMemo,</if>
+            <if test="bLimitSale != null">bLimitSale,</if>
+            cCusContactCode,
+            <if test="cCusCountryCode != null">cCusCountryCode,</if>
+            <if test="cCusEnName != null">cCusEnName,</if>
+            <if test="cCusEnAddr1 != null">cCusEnAddr1,</if>
+            <if test="cCusEnAddr2 != null">cCusEnAddr2,</if>
+            <if test="cCusEnAddr3 != null">cCusEnAddr3,</if>
+            <if test="cCusEnAddr4 != null">cCusEnAddr4,</if>
+            <if test="cCusPortCode != null">cCusPortCode,</if>
+            <if test="cPrimaryVen != null">cPrimaryVen,</if>
+            <if test="fCommisionRate != null">fCommisionRate,</if>
+            <if test="fInsueRate != null">fInsueRate,</if>
+            <if test="bHomeBranch != null">bHomeBranch,</if>
+            <if test="cBranchAddr != null">cBranchAddr,</if>
+            <if test="cBranchPhone != null">cBranchPhone,</if>
+            <if test="cBranchPerson != null">cBranchPerson,</if>
+            <if test="cCusTradeCCode != null">cCusTradeCCode,</if>
+            <if test="CustomerKCode != null">CustomerKCode,</if>
+            <if test="bCusState != null">bCusState,</if>
+            <if test="bShop != null">bShop,</if>
+            <if test="cCusBankCode != null">cCusBankCode,</if>
+            <if test="cCusExch_name != null">cCusExch_name,</if>
+            <if test="iCusGSPType != null">iCusGSPType,</if>
+            <if test="iCusGSPAuth != null">iCusGSPAuth,</if>
+            <if test="cCusGSPAuthNo != null">cCusGSPAuthNo,</if>
+            <if test="cCusBusinessNo != null">cCusBusinessNo,</if>
+            <if test="cCusLicenceNo != null">cCusLicenceNo,</if>
+            <if test="bCusDomestic != null">bCusDomestic,</if>
+            <if test="bCusOverseas != null">bCusOverseas,</if>
+            <if test="cCusCreditCompany != null">cCusCreditCompany,</if>
+            <if test="cCusSAProtocol != null">cCusSAProtocol,</if>
+            <if test="cCusExProtocol != null">cCusExProtocol,</if>
+            <if test="cCusOtherProtocol != null">cCusOtherProtocol,</if>
+            <if test="fCusDiscountRate != null">fCusDiscountRate,</if>
+            <if test="cCusSSCode != null">cCusSSCode,</if>
+            <if test="cCusCMProtocol != null">cCusCMProtocol,</if>
+            <if test="dCusCreateDatetime != null">dCusCreateDatetime,</if>
+            <if test="cCusAppDocNo != null">cCusAppDocNo,</if>
+            <if test="cCusMnemCode != null">cCusMnemCode,</if>
+            <if test="fAdvancePaymentRatio != null">fAdvancePaymentRatio,</if>
+            <if test="bServiceAttribute != null">bServiceAttribute,</if>
+            <if test="bRequestSign != null">bRequestSign,</if>
+            <if test="bOnGPinStore != null">bOnGPinStore,</if>
+            <if test="DR != null">DR,</if>
+            <if test="TS != null">TS,</if>
+            <if test="HTDEF1 != null">HTDEF1,</if>
+            <if test="HTDEF2 != null">HTDEF2,</if>
+            <if test="HTDEF3 != null">HTDEF3,</if>
+            <if test="HTDEF4 != null">HTDEF4,</if>
+            <if test="HTDEF5 != null">HTDEF5,</if>
+            <if test="HTDEF6 != null">HTDEF6,</if>
+            <if test="HTDEF7 != null">HTDEF7,</if>
+            <if test="HTDEF8 != null">HTDEF8,</if>
+            <if test="HTDEF9 != null">HTDEF9,</if>
+            <if test="HTDEF10 != null">HTDEF10,</if>
+            <if test="HTDEF11 != null">HTDEF11,</if>
+            <if test="HTDEF12 != null">HTDEF12,</if>
+            <if test="HTDEF13 != null">HTDEF13,</if>
+            <if test="HTDEF14 != null">HTDEF14,</if>
+            <if test="HTDEF15 != null">HTDEF15,</if>
+            <if test="HTDEF16 != null">HTDEF16,</if>
+            <if test="HTDEF17 != null">HTDEF17,</if>
+            <if test="HTDEF18 != null">HTDEF18,</if>
+            <if test="HTDEF19 != null">HTDEF19,</if>
+            <if test="HTDEF20 != null">HTDEF20,</if>
+        </trim>
+        values
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="cCusCode != null">#{cCusCode},</if>
+            <if test="cCusName != null">#{cCusName},</if>
+            <if test="cCusAbbName != null">#{cCusAbbName},</if>
+            <if test="cCCCode != null">#{cCCCode},</if>
+            <if test="cDCCode != null">#{cDCCode},</if>
+            <if test="cTrade != null">#{cTrade},</if>
+            <if test="cCusAddress != null">#{cCusAddress},</if>
+            <if test="cCusPostCode != null">#{cCusPostCode},</if>
+            <if test="cCusRegCode != null">#{cCusRegCode},</if>
+            <if test="cCusBank != null">#{cCusBank},</if>
+            <if test="cCusAccount != null">#{cCusAccount},</if>
+            <if test="dCusDevDate != null">#{dCusDevDate},</if>
+            <if test="cCusLPerson != null">#{cCusLPerson},</if>
+            <if test="cCusEmail != null">#{cCusEmail},</if>
+            <if test="cCusPerson != null">#{cCusPerson},</if>
+            <if test="cCusPhone != null">#{cCusPhone},</if>
+            <if test="cCusFax != null">#{cCusFax},</if>
+            <if test="cCusBP != null">#{cCusBP},</if>
+            <if test="cCusHand != null">#{cCusHand},</if>
+            <if test="cCusPPerson != null">#{cCusPPerson},</if>
+            <if test="iCusDisRate != null">#{iCusDisRate},</if>
+            <if test="cCusCreGrade != null">#{cCusCreGrade},</if>
+            <if test="iCusCreLine != null">#{iCusCreLine},</if>
+            <if test="iCusCreDate != null">#{iCusCreDate},</if>
+            <if test="cCusPayCond != null">#{cCusPayCond},</if>
+            <if test="cCusOAddress != null">#{cCusOAddress},</if>
+            <if test="cCusOType != null">#{cCusOType},</if>
+            <if test="cCusHeadCode != null">#{cCusHeadCode},</if>
+            <if test="cCusWhCode != null">#{cCusWhCode},</if>
+            <if test="cCusDepart != null">#{cCusDepart},</if>
+            <if test="iARMoney != null">#{iARMoney},</if>
+            <if test="dLastDate != null">#{dLastDate},</if>
+            <if test="iLastMoney != null">#{iLastMoney},</if>
+            <if test="dLRDate != null">#{dLRDate},</if>
+            <if test="iLRMoney != null">#{iLRMoney},</if>
+            <if test="dEndDate != null">#{dEndDate},</if>
+            <if test="iFrequency != null">#{iFrequency},</if>
+            <if test="cCusDefine1 != null">#{cCusDefine1},</if>
+            <if test="cCusDefine2 != null">#{cCusDefine2},</if>
+            <if test="cCusDefine3 != null">#{cCusDefine3},</if>
+            <if test="iCostGrade != null">#{iCostGrade},</if>
+            <if test="cCreatePerson != null">#{cCreatePerson},</if>
+            <if test="cModifyPerson != null">#{cModifyPerson},</if>
+            <if test="dModifyDate != null">#{dModifyDate},</if>
+            <if test="cRelVendor != null">#{cRelVendor},</if>
+            <if test="iId != null">#{iId},</if>
+            <if test="cPriceGroup != null">#{cPriceGroup},</if>
+            <if test="cOfferGrade != null">#{cOfferGrade},</if>
+            <if test="iOfferRate != null">#{iOfferRate},</if>
+            <if test="cCusDefine4 != null">#{cCusDefine4},</if>
+            <if test="cCusDefine5 != null">#{cCusDefine5},</if>
+            <if test="cCusDefine6 != null">#{cCusDefine6},</if>
+            <if test="cCusDefine7 != null">#{cCusDefine7},</if>
+            <if test="cCusDefine8 != null">#{cCusDefine8},</if>
+            <if test="cCusDefine9 != null">#{cCusDefine9},</if>
+            <if test="cCusDefine10 != null">#{cCusDefine10},</if>
+            <if test="cCusDefine11 != null">#{cCusDefine11},</if>
+            <if test="cCusDefine12 != null">#{cCusDefine12},</if>
+            <if test="cCusDefine13 != null">#{cCusDefine13},</if>
+            <if test="cCusDefine14 != null">#{cCusDefine14},</if>
+            <if test="cCusDefine15 != null">#{cCusDefine15},</if>
+            <if test="cCusDefine16 != null">#{cCusDefine16},</if>
+            <if test="cInvoiceCompany != null">#{cInvoiceCompany},</if>
+            <if test="bCredit != null">#{bCredit},</if>
+            <if test="bCreditDate != null">#{bCreditDate},</if>
+            <if test="bCreditByHead != null">#{bCreditByHead},</if>
+            <if test="bLicenceDate != null">#{bLicenceDate},</if>
+            <if test="dLicenceSDate != null">#{dLicenceSDate},</if>
+            <if test="dLicenceEDate != null">#{dLicenceEDate},</if>
+            <if test="iLicenceADays != null">#{iLicenceADays},</if>
+            <if test="bBusinessDate != null">#{bBusinessDate},</if>
+            <if test="dBusinessSDate != null">#{dBusinessSDate},</if>
+            <if test="dBusinessEDate != null">#{dBusinessEDate},</if>
+            <if test="iBusinessADays != null">#{iBusinessADays},</if>
+            <if test="bProxy != null">#{bProxy},</if>
+            <if test="dProxySDate != null">#{dProxySDate},</if>
+            <if test="dProxyEDate != null">#{dProxyEDate},</if>
+            <if test="iProxyADays != null">#{iProxyADays},</if>
+            <if test="cMemo != null">#{cMemo},</if>
+            <if test="bLimitSale != null">#{bLimitSale},</if>
+            newid(),
+            <if test="cCusCountryCode != null">#{cCusCountryCode},</if>
+            <if test="cCusEnName != null">#{cCusEnName},</if>
+            <if test="cCusEnAddr1 != null">#{cCusEnAddr1},</if>
+            <if test="cCusEnAddr2 != null">#{cCusEnAddr2},</if>
+            <if test="cCusEnAddr3 != null">#{cCusEnAddr3},</if>
+            <if test="cCusEnAddr4 != null">#{cCusEnAddr4},</if>
+            <if test="cCusPortCode != null">#{cCusPortCode},</if>
+            <if test="cPrimaryVen != null">#{cPrimaryVen},</if>
+            <if test="fCommisionRate != null">#{fCommisionRate},</if>
+            <if test="fInsueRate != null">#{fInsueRate},</if>
+            <if test="bHomeBranch != null">#{bHomeBranch},</if>
+            <if test="cBranchAddr != null">#{cBranchAddr},</if>
+            <if test="cBranchPhone != null">#{cBranchPhone},</if>
+            <if test="cBranchPerson != null">#{cBranchPerson},</if>
+            <if test="cCusTradeCCode != null">#{cCusTradeCCode},</if>
+            <if test="CustomerKCode != null">#{CustomerKCode},</if>
+            <if test="bCusState != null">#{bCusState},</if>
+            <if test="bShop != null">#{bShop},</if>
+            <if test="cCusBankCode != null">#{cCusBankCode},</if>
+            <if test="cCusExch_name != null">#{cCusExch_name},</if>
+            <if test="iCusGSPType != null">#{iCusGSPType},</if>
+            <if test="iCusGSPAuth != null">#{iCusGSPAuth},</if>
+            <if test="cCusGSPAuthNo != null">#{cCusGSPAuthNo},</if>
+            <if test="cCusBusinessNo != null">#{cCusBusinessNo},</if>
+            <if test="cCusLicenceNo != null">#{cCusLicenceNo},</if>
+            <if test="bCusDomestic != null">#{bCusDomestic},</if>
+            <if test="bCusOverseas != null">#{bCusOverseas},</if>
+            <if test="cCusCreditCompany != null">#{cCusCreditCompany},</if>
+            <if test="cCusSAProtocol != null">#{cCusSAProtocol},</if>
+            <if test="cCusExProtocol != null">#{cCusExProtocol},</if>
+            <if test="cCusOtherProtocol != null">#{cCusOtherProtocol},</if>
+            <if test="fCusDiscountRate != null">#{fCusDiscountRate},</if>
+            <if test="cCusSSCode != null">#{cCusSSCode},</if>
+            <if test="cCusCMProtocol != null">#{cCusCMProtocol},</if>
+            <if test="dCusCreateDatetime != null">#{dCusCreateDatetime},</if>
+            <if test="cCusAppDocNo != null">#{cCusAppDocNo},</if>
+            <if test="cCusMnemCode != null">#{cCusMnemCode},</if>
+            <if test="fAdvancePaymentRatio != null">#{fAdvancePaymentRatio},</if>
+            <if test="bServiceAttribute != null">#{bServiceAttribute},</if>
+            <if test="bRequestSign != null">#{bRequestSign},</if>
+            <if test="bOnGPinStore != null">#{bOnGPinStore},</if>
+            <if test="DR != null">#{DR},</if>
+            <if test="TS != null">#{TS},</if>
+            <if test="HTDEF1 != null">#{HTDEF1},</if>
+            <if test="HTDEF2 != null">#{HTDEF2},</if>
+            <if test="HTDEF3 != null">#{HTDEF3},</if>
+            <if test="HTDEF4 != null">#{HTDEF4},</if>
+            <if test="HTDEF5 != null">#{HTDEF5},</if>
+            <if test="HTDEF6 != null">#{HTDEF6},</if>
+            <if test="HTDEF7 != null">#{HTDEF7},</if>
+            <if test="HTDEF8 != null">#{HTDEF8},</if>
+            <if test="HTDEF9 != null">#{HTDEF9},</if>
+            <if test="HTDEF10 != null">#{HTDEF10},</if>
+            <if test="HTDEF11 != null">#{HTDEF11},</if>
+            <if test="HTDEF12 != null">#{HTDEF12},</if>
+            <if test="HTDEF13 != null">#{HTDEF13},</if>
+            <if test="HTDEF14 != null">#{HTDEF14},</if>
+            <if test="HTDEF15 != null">#{HTDEF15},</if>
+            <if test="HTDEF16 != null">#{HTDEF16},</if>
+            <if test="HTDEF17 != null">#{HTDEF17},</if>
+            <if test="HTDEF18 != null">#{HTDEF18},</if>
+            <if test="HTDEF19 != null">#{HTDEF19},</if>
+            <if test="HTDEF20 != null">#{HTDEF20},</if>
+        </trim>
+    </insert>
+
+    <select id="getByCond" resultType="Customer">
+        select * from HT_Customer
+        <where>
+            <if test="search!=null and search!=''">
+                ${search}
+            </if>
+        </where>
+    </select>
+
+    <!--删除-->
+    <delete id="delete">
+        delete from HT_Customer where cCusCode = #{ids}
+    </delete>
+
+    <!--根据客户编码查询客户基本信息-->
+    <select id="getById" parameterType="String" resultType="Customer">
+        select * from HT_Customer
+        <where>
+            <if test="_parameter!=null and _parameter!=''">
+                cCusCode='${_parameter}'
+            </if>
+        </where>
+    </select>
+
+    <!--客户编码校验-->
+    <select id="checkcCusCode"  resultType="int">
+        select count(*) from ht_customer where  cCusCode= #{cCusCode}
+    </select>
+    <!--修改-->
+    <update id="update" parameterType="Customer">
+        update ht_customer
+        <set>
+            <if test="cCusName!=null">cCusName = #{cCusName},</if>
+            <if test="cCusAbbName!=null">cCusAbbName = #{cCusAbbName},</if>
+            <if test="cCCCode!=null">cCCCode = #{cCCCode},</if>
+            <if test="cDCCode!=null">cDCCode = #{cDCCode},</if>
+            <if test="cTrade!=null">cTrade = #{cTrade},</if>
+            <if test="cCusAddress!=null">cCusAddress = #{cCusAddress},</if>
+            <if test="cCusPostCode!=null">cCusPostCode = #{cCusPostCode},</if>
+            <if test="cCusRegCode!=null">cCusRegCode = #{cCusRegCode},</if>
+            <if test="cCusBank!=null">cCusBank = #{cCusBank},</if>
+            <if test="cCusAccount!=null">cCusAccount = #{cCusAccount},</if>
+            <if test="dCusDevDate!=null">dCusDevDate = #{dCusDevDate},</if>
+            <if test="cCusLPerson!=null">cCusLPerson = #{cCusLPerson},</if>
+            <if test="cCusEmail!=null">cCusEmail = #{cCusEmail},</if>
+            <if test="cCusPerson!=null">cCusPerson = #{cCusPerson},</if>
+            <if test="cCusPhone!=null">cCusPhone = #{cCusPhone},</if>
+            <if test="cCusFax!=null">cCusFax = #{cCusFax},</if>
+            <if test="cCusBP!=null">cCusBP = #{cCusBP},</if>
+            <if test="cCusHand!=null">cCusHand = #{cCusHand},</if>
+            <if test="cCusPPerson!=null">cCusPPerson = #{cCusPPerson},</if>
+            <if test="iCusDisRate!=null">iCusDisRate = #{iCusDisRate},</if>
+            <if test="cCusCreGrade!=null">cCusCreGrade = #{cCusCreGrade},</if>
+            <if test="iCusCreLine!=null">iCusCreLine = #{iCusCreLine},</if>
+            <if test="iCusCreDate!=null">iCusCreDate = #{iCusCreDate},</if>
+            <if test="cCusPayCond!=null">cCusPayCond = #{cCusPayCond},</if>
+            <if test="cCusOAddress!=null">cCusOAddress = #{cCusOAddress},</if>
+            <if test="cCusOType!=null">cCusOType = #{cCusOType},</if>
+            <if test="cCusHeadCode!=null">cCusHeadCode = #{cCusHeadCode},</if>
+            <if test="cCusWhCode!=null">cCusWhCode = #{cCusWhCode},</if>
+            <if test="cCusDepart!=null">cCusDepart = #{cCusDepart},</if>
+            <if test="iARMoney!=null">iARMoney = #{iARMoney},</if>
+            <if test="dLastDate!=null">dLastDate = #{dLastDate},</if>
+            <if test="iLastMoney!=null">iLastMoney = #{iLastMoney},</if>
+            <if test="dLRDate!=null">dLRDate = #{dLRDate},</if>
+            <if test="iLRMoney!=null">iLRMoney = #{iLRMoney},</if>
+            <if test="dEndDate!=null">dEndDate = #{dEndDate},</if>
+            <if test="iFrequency!=null">iFrequency = #{iFrequency},</if>
+            <if test="cCusDefine1!=null">cCusDefine1 = #{cCusDefine1},</if>
+            <if test="cCusDefine2!=null">cCusDefine2 = #{cCusDefine2},</if>
+            <if test="cCusDefine3!=null">cCusDefine3 = #{cCusDefine3},</if>
+            <if test="iCostGrade!=null">iCostGrade = #{iCostGrade},</if>
+            <if test="cCreatePerson!=null">cCreatePerson = #{cCreatePerson},</if>
+            <if test="cModifyPerson!=null">cModifyPerson = #{cModifyPerson},</if>
+            <if test="dModifyDate!=null">dModifyDate = #{dModifyDate},</if>
+            <if test="cRelVendor!=null">cRelVendor = #{cRelVendor},</if>
+            <if test="iId!=null">iId = #{iId},</if>
+            <if test="cPriceGroup!=null">cPriceGroup = #{cPriceGroup},</if>
+            <if test="cOfferGrade!=null">cOfferGrade = #{cOfferGrade},</if>
+            <if test="iOfferRate!=null">iOfferRate = #{iOfferRate},</if>
+            <if test="cCusDefine4!=null">cCusDefine4 = #{cCusDefine4},</if>
+            <if test="cCusDefine5!=null">cCusDefine5 = #{cCusDefine5},</if>
+            <if test="cCusDefine6!=null">cCusDefine6 = #{cCusDefine6},</if>
+            <if test="cCusDefine7!=null">cCusDefine7 = #{cCusDefine7},</if>
+            <if test="cCusDefine8!=null">cCusDefine8 = #{cCusDefine8},</if>
+            <if test="cCusDefine9!=null">cCusDefine9 = #{cCusDefine9},</if>
+            <if test="cCusDefine10!=null">cCusDefine10 = #{cCusDefine10},</if>
+            <if test="cCusDefine11!=null">cCusDefine11 = #{cCusDefine11},</if>
+            <if test="cCusDefine12!=null">cCusDefine12 = #{cCusDefine12},</if>
+            <if test="cCusDefine13!=null">cCusDefine13 = #{cCusDefine13},</if>
+            <if test="cCusDefine14!=null">cCusDefine14 = #{cCusDefine14},</if>
+            <if test="cCusDefine15!=null">cCusDefine15 = #{cCusDefine15},</if>
+            <if test="cCusDefine16!=null">cCusDefine16 = #{cCusDefine16},</if>
+            <if test="pubufts!=null">pubufts = #{pubufts},</if>
+            <if test="cInvoiceCompany!=null">cInvoiceCompany = #{cInvoiceCompany},</if>
+            <if test="bCredit!=null">bCredit = #{bCredit},</if>
+            <if test="bCreditDate!=null">bCreditDate = #{bCreditDate},</if>
+            <if test="bCreditByHead!=null">bCreditByHead = #{bCreditByHead},</if>
+            <if test="bLicenceDate!=null">bLicenceDate = #{bLicenceDate},</if>
+            <if test="dLicenceSDate!=null">dLicenceSDate = #{dLicenceSDate},</if>
+            <if test="dLicenceEDate!=null">dLicenceEDate = #{dLicenceEDate},</if>
+            <if test="iLicenceADays!=null">iLicenceADays = #{iLicenceADays},</if>
+            <if test="bBusinessDate!=null">bBusinessDate = #{bBusinessDate},</if>
+            <if test="dBusinessSDate!=null">dBusinessSDate = #{dBusinessSDate},</if>
+            <if test="dBusinessEDate!=null">dBusinessEDate = #{dBusinessEDate},</if>
+            <if test="iBusinessADays!=null">iBusinessADays = #{iBusinessADays},</if>
+            <if test="bProxy!=null">bProxy = #{bProxy},</if>
+            <if test="dProxySDate!=null">dProxySDate = #{dProxySDate},</if>
+            <if test="dProxyEDate!=null">dProxyEDate = #{dProxyEDate},</if>
+            <if test="iProxyADays!=null">iProxyADays = #{iProxyADays},</if>
+            <if test="cMemo!=null">cMemo = #{cMemo},</if>
+            <if test="bLimitSale!=null">bLimitSale = #{bLimitSale},</if>
+            <if test="cCusContactCode!=null">cCusContactCode = #{cCusContactCode},</if>
+            <if test="cCusCountryCode!=null">cCusCountryCode = #{cCusCountryCode},</if>
+            <if test="cCusEnName!=null">cCusEnName = #{cCusEnName},</if>
+            <if test="cCusEnAddr1!=null">cCusEnAddr1 = #{cCusEnAddr1},</if>
+            <if test="cCusEnAddr2!=null">cCusEnAddr2 = #{cCusEnAddr2},</if>
+            <if test="cCusEnAddr3!=null">cCusEnAddr3 = #{cCusEnAddr3},</if>
+            <if test="cCusEnAddr4!=null">cCusEnAddr4 = #{cCusEnAddr4},</if>
+            <if test="cCusPortCode!=null">cCusPortCode = #{cCusPortCode},</if>
+            <if test="cPrimaryVen!=null">cPrimaryVen = #{cPrimaryVen},</if>
+            <if test="fCommisionRate!=null">fCommisionRate = #{fCommisionRate},</if>
+            <if test="fInsueRate!=null">fInsueRate = #{fInsueRate},</if>
+            <if test="bHomeBranch!=null">bHomeBranch = #{bHomeBranch},</if>
+            <if test="cBranchAddr!=null">cBranchAddr = #{cBranchAddr},</if>
+            <if test="cBranchPhone!=null">cBranchPhone = #{cBranchPhone},</if>
+            <if test="cBranchPerson!=null">cBranchPerson = #{cBranchPerson},</if>
+            <if test="cCusTradeCCode!=null">cCusTradeCCode = #{cCusTradeCCode},</if>
+            <if test="CustomerKCode!=null">CustomerKCode = #{CustomerKCode},</if>
+            <if test="bCusState!=null">bCusState = #{bCusState},</if>
+            <if test="bShop!=null">bShop = #{bShop},</if>
+            <if test="cCusBankCode!=null">cCusBankCode = #{cCusBankCode},</if>
+            <if test="cCusExch_name!=null">cCusExch_name = #{cCusExch_name},</if>
+            <if test="iCusGSPType!=null">iCusGSPType = #{iCusGSPType},</if>
+            <if test="iCusGSPAuth!=null">iCusGSPAuth = #{iCusGSPAuth},</if>
+            <if test="cCusGSPAuthNo!=null">cCusGSPAuthNo = #{cCusGSPAuthNo},</if>
+            <if test="cCusBusinessNo!=null">cCusBusinessNo = #{cCusBusinessNo},</if>
+            <if test="cCusLicenceNo!=null">cCusLicenceNo = #{cCusLicenceNo},</if>
+            <if test="bCusDomestic!=null">bCusDomestic = #{bCusDomestic},</if>
+            <if test="bCusOverseas!=null">bCusOverseas = #{bCusOverseas},</if>
+            <if test="cCusCreditCompany!=null">cCusCreditCompany = #{cCusCreditCompany},</if>
+            <if test="cCusSAProtocol!=null">cCusSAProtocol = #{cCusSAProtocol},</if>
+            <if test="cCusExProtocol!=null">cCusExProtocol = #{cCusExProtocol},</if>
+            <if test="cCusOtherProtocol!=null">cCusOtherProtocol = #{cCusOtherProtocol},</if>
+            <if test="fCusDiscountRate!=null">fCusDiscountRate = #{fCusDiscountRate},</if>
+            <if test="cCusSSCode!=null">cCusSSCode = #{cCusSSCode},</if>
+            <if test="cCusCMProtocol!=null">cCusCMProtocol = #{cCusCMProtocol},</if>
+            <if test="dCusCreateDatetime!=null">dCusCreateDatetime = #{dCusCreateDatetime},</if>
+            <if test="cCusAppDocNo!=null">cCusAppDocNo = #{cCusAppDocNo},</if>
+            <if test="cCusMnemCode!=null">cCusMnemCode = #{cCusMnemCode},</if>
+            <if test="fAdvancePaymentRatio!=null">fAdvancePaymentRatio = #{fAdvancePaymentRatio},</if>
+            <if test="bServiceAttribute!=null">bServiceAttribute = #{bServiceAttribute},</if>
+            <if test="bRequestSign!=null">bRequestSign = #{bRequestSign},</if>
+            <if test="bOnGPinStore!=null">bOnGPinStore = #{bOnGPinStore},</if>
+            <if test="DR!=null">DR = #{DR},</if>
+            <if test="TS!=null">TS = #{TS},</if>
+            <if test="HTDEF1!=null">HTDEF1 = #{HTDEF1},</if>
+            <if test="HTDEF2!=null">HTDEF2 = #{HTDEF2},</if>
+            <if test="HTDEF3!=null">HTDEF3 = #{HTDEF3},</if>
+            <if test="HTDEF4!=null">HTDEF4 = #{HTDEF4},</if>
+            <if test="HTDEF5!=null">HTDEF5 = #{HTDEF5},</if>
+            <if test="HTDEF6!=null">HTDEF6 = #{HTDEF6},</if>
+            <if test="HTDEF7!=null">HTDEF7 = #{HTDEF7},</if>
+            <if test="HTDEF8!=null">HTDEF8 = #{HTDEF8},</if>
+            <if test="HTDEF9!=null">HTDEF9 = #{HTDEF9},</if>
+            <if test="HTDEF10!=null">HTDEF10 = #{HTDEF10},</if>
+            <if test="HTDEF11!=null">HTDEF11 = #{HTDEF11},</if>
+            <if test="HTDEF12!=null">HTDEF12 = #{HTDEF12},</if>
+            <if test="HTDEF13!=null">HTDEF13 = #{HTDEF13},</if>
+            <if test="HTDEF14!=null">HTDEF14 = #{HTDEF14},</if>
+            <if test="HTDEF15!=null">HTDEF15 = #{HTDEF15},</if>
+            <if test="HTDEF16!=null">HTDEF16 = #{HTDEF16},</if>
+            <if test="HTDEF17!=null">HTDEF17 = #{HTDEF17},</if>
+            <if test="HTDEF18!=null">HTDEF18 = #{HTDEF18},</if>
+            <if test="HTDEF19!=null">HTDEF19 = #{HTDEF19},</if>
+            <if test="HTDEF20!=null">HTDEF20 = #{HTDEF20},</if>
+        </set>
+        where cCusCode = #{cCusCode}
+    </update>
+
+</mapper>

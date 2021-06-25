@@ -1,0 +1,164 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whxisoft.mapper.CmTypeMapper">
+    <select id="getByCond" resultType="CmType">
+        select * from HT_CM_Type
+        <where>
+            <if test="id !=null and id !=''">
+                cClassCode = #{id}
+            </if>
+        </where>
+    </select>
+
+    <select id="getByCond1" resultType="CmType">
+        select * from HT_CM_Type
+    </select>
+
+    <select id="getID" resultType="CmType">
+        select * from HT_CM_Type
+        <where>
+            cClassCode = #{id}
+        </where>
+    </select>
+
+    <select id="getGroup" resultType="CmType">
+        select cTypeCode, cTypeName from HT_CM_Type
+        group by cTypeCode, cTypeName
+        having cTypeName is not null
+        <if test="search!=null and search!=''">
+            and ${search}
+        </if>
+        order by cTypeCode
+    </select>
+
+    <!-- 新增CmType -->
+    <insert id="save" parameterType="CmType">
+        insert into HT_CM_Type
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="cTypeCode != null">cTypeCode,</if>
+            <if test="cTypeName != null">cTypeName,</if>
+            <if test="cClassCode != null">cClassCode,</if>
+            <if test="cCharacter != null">cCharacter,</if>
+            <if test="cDirection != null">cDirection,</if>
+            <if test="cControlDot != null">cControlDot,</if>
+            <if test="cControlType != null">cControlType,</if>
+            <if test="decPermitError != null">decPermitError,</if>
+            <if test="cTemplate != null">cTemplate,</if>
+            <if test="bUseDetail != null">bUseDetail,</if>
+            <if test="cRemark != null">cRemark,</if>
+            <if test="cUseTab != null">cUseTab,</if>
+            <if test="dblCountPermitError != null">dblCountPermitError,</if>
+            <if test="dblSumPermitError != null">dblSumPermitError,</if>
+            <if test="dr != null">dr,</if>
+            <if test="ts != null">ts,</if>
+            <if test="cCode != null">cCode,</if>
+            <if test="htdef2 != null">htdef2,</if>
+            <if test="htdef3 != null">htdef3,</if>
+            <if test="htdef4 != null">htdef4,</if>
+            <if test="htdef5 != null">htdef5,</if>
+            <if test="htdef6 != null">htdef6,</if>
+            <if test="htdef7 != null">htdef7,</if>
+            <if test="htdef8 != null">htdef8,</if>
+            <if test="htdef9 != null">htdef9,</if>
+            <if test="htdef10 != null">htdef10,</if>
+            <if test="htdef11 != null">htdef11,</if>
+            <if test="htdef12 != null">htdef12,</if>
+            <if test="htdef13 != null">htdef13,</if>
+            <if test="htdef14 != null">htdef14,</if>
+            <if test="htdef15 != null">htdef15,</if>
+            <if test="htdef16 != null">htdef16,</if>
+            <if test="htdef17 != null">htdef17,</if>
+            <if test="htdef18 != null">htdef18,</if>
+            <if test="htdef19 != null">htdef19,</if>
+            <if test="htdef20 != null">htdef20,</if>
+        </trim>
+        values
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="cTypeCode != null">#{cTypeCode},</if>
+            <if test="cTypeName != null">#{cTypeName},</if>
+            <if test="cClassCode != null">#{cClassCode},</if>
+            <if test="cCharacter != null">#{cCharacter},</if>
+            <if test="cDirection != null">#{cDirection},</if>
+            <if test="cControlDot != null">#{cControlDot},</if>
+            <if test="cControlType != null">#{cControlType},</if>
+            <if test="decPermitError != null">#{decPermitError},</if>
+            <if test="cTemplate != null">#{cTemplate},</if>
+            <if test="bUseDetail != null">#{bUseDetail},</if>
+            <if test="cRemark != null">#{cRemark},</if>
+            <if test="cUseTab != null">#{cUseTab},</if>
+            <if test="dblCountPermitError != null">#{dblCountPermitError},</if>
+            <if test="dblSumPermitError != null">#{dblSumPermitError},</if>
+            <if test="dr != null">#{dr},</if>
+            <if test="ts != null">#{ts},</if>
+            <if test="cCode != null">#{cCode},</if>
+            <if test="htdef2 != null">#{htdef2},</if>
+            <if test="htdef3 != null">#{htdef3},</if>
+            <if test="htdef4 != null">#{htdef4},</if>
+            <if test="htdef5 != null">#{htdef5},</if>
+            <if test="htdef6 != null">#{htdef6},</if>
+            <if test="htdef7 != null">#{htdef7},</if>
+            <if test="htdef8 != null">#{htdef8},</if>
+            <if test="htdef9 != null">#{htdef9},</if>
+            <if test="htdef10 != null">#{htdef10},</if>
+            <if test="htdef11 != null">#{htdef11},</if>
+            <if test="htdef12 != null">#{htdef12},</if>
+            <if test="htdef13 != null">#{htdef13},</if>
+            <if test="htdef14 != null">#{htdef14},</if>
+            <if test="htdef15 != null">#{htdef15},</if>
+            <if test="htdef16 != null">#{htdef16},</if>
+            <if test="htdef17 != null">#{htdef17},</if>
+            <if test="htdef18 != null">#{htdef18},</if>
+            <if test="htdef19 != null">#{htdef19},</if>
+            <if test="htdef20 != null">#{htdef20},</if>
+        </trim>
+    </insert>
+
+    <!-- 修改CmType -->
+    <update id="update" parameterType="CmType">
+        update HT_CM_Type
+        <set>
+            <if test="cTypeName != null">cTypeName = #{cTypeName},</if>
+            <if test="cClassCode != null">cClassCode = #{cClassCode},</if>
+            <if test="cCharacter != null">cCharacter = #{cCharacter},</if>
+            <if test="cDirection != null">cDirection = #{cDirection},</if>
+            <if test="cControlDot != null">cControlDot = #{cControlDot},</if>
+            <if test="cControlType != null">cControlType = #{cControlType},</if>
+            <if test="decPermitError != null">decPermitError = #{decPermitError},</if>
+            <if test="cTemplate != null">cTemplate = #{cTemplate},</if>
+            <if test="bUseDetail != null">bUseDetail = #{bUseDetail},</if>
+            <if test="cRemark != null">cRemark = #{cRemark},</if>
+            <if test="cUseTab != null">cUseTab = #{cUseTab},</if>
+            <if test="dblCountPermitError != null">dblCountPermitError = #{dblCountPermitError},</if>
+            <if test="dblSumPermitError != null">dblSumPermitError = #{dblSumPermitError},</if>
+            <if test="dr != null">dr = #{dr},</if>
+            <if test="ts != null">ts = #{ts},</if>
+            <if test="cCode != null">cCode = #{cCode},</if>
+            <if test="htdef2 != null">htdef2 = #{htdef2},</if>
+            <if test="htdef3 != null">htdef3 = #{htdef3},</if>
+            <if test="htdef4 != null">htdef4 = #{htdef4},</if>
+            <if test="htdef5 != null">htdef5 = #{htdef5},</if>
+            <if test="htdef6 != null">htdef6 = #{htdef6},</if>
+            <if test="htdef7 != null">htdef7 = #{htdef7},</if>
+            <if test="htdef8 != null">htdef8 = #{htdef8},</if>
+            <if test="htdef9 != null">htdef9 = #{htdef9},</if>
+            <if test="htdef10 != null">htdef10 = #{htdef10},</if>
+            <if test="htdef11 != null">htdef11 = #{htdef11},</if>
+            <if test="htdef12 != null">htdef12 = #{htdef12},</if>
+            <if test="htdef13 != null">htdef13 = #{htdef13},</if>
+            <if test="htdef14 != null">htdef14 = #{htdef14},</if>
+            <if test="htdef15 != null">htdef15 = #{htdef15},</if>
+            <if test="htdef16 != null">htdef16 = #{htdef16},</if>
+            <if test="htdef17 != null">htdef17 = #{htdef17},</if>
+            <if test="htdef18 != null">htdef18 = #{htdef18},</if>
+            <if test="htdef19 != null">htdef19 = #{htdef19},</if>
+            <if test="htdef20 != null">htdef20 = #{htdef20},</if>
+        </set>
+        where cTypeCode = #{cTypeCode}
+    </update>
+
+    <delete id="delete">
+        delete from HT_CM_Type where cTypeCode = #{id}
+    </delete>
+</mapper>

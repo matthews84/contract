@@ -1,0 +1,210 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whxisoft.mapper.PayOrderMapper">
+    <!-- 新增CmPayOrder -->
+    <insert id="save" parameterType="CmPayOrder">
+        insert into ht_cm_payorder
+        <trim prefix="(" suffixOverrides="," suffix=")">
+
+            <if test="strSetupDate != null">strSetupDate,</if>
+            <if test="strSetupPerson != null">strSetupPerson,</if>
+            <if test="strCurrency != null">strCurrency,</if>
+            <if test="dblExchange != null">dblExchange,</if>
+            <if test="strPayOrderRemark != null">strPayOrderRemark,</if>
+            <if test="strPayOrderID != null">strPayOrderID,</if>
+            <if test="strContractID != null">strContractID,</if>
+            <if test="strContractName != null">strContractName,</if>
+            <if test="strBisectionUnit != null">strBisectionUnit,</if>
+            <if test="dblSumMoney != null">dblSumMoney,</if>
+            <if test="payDate != null">payDate,</if>
+            <if test="payMoney != null">payMoney,</if>
+            <if test="hasPayMoney != null">hasPayMoney,</if>
+            <if test="advPayment != null">advPayment,</if>
+            <if test="retePayment != null">retePayment,</if>
+            <if test="materPayment != null">materPayment,</if>
+            <if test="other1 != null">other1,</if>
+            <if test="other2 != null">other2,</if>
+            <if test="other3 != null">other3,</if>
+            <if test="other4 != null">other4,</if>
+            <if test="other5 != null">other5,</if>
+            <if test="other6 != null">other6,</if>
+            <if test="other7 != null">other7,</if>
+            <if test="other8 != null">other8,</if>
+            <if test="other9 != null">other9,</if>
+            <if test="other10 != null">other10,</if>
+            <if test="subtotal != null">subtotal,</if>
+            <if test="payRemark != null">payRemark,</if>
+            <if test="DR != null">DR,</if>
+            <if test="TS != null">TS,</if>
+            <if test="HTDEF1 != null">HTDEF1,</if>
+            <if test="HTDEF2 != null">HTDEF2,</if>
+            <if test="HTDEF3 != null">HTDEF3,</if>
+            <if test="HTDEF4 != null">HTDEF4,</if>
+            <if test="HTDEF5 != null">HTDEF5,</if>
+            <if test="HTDEF6 != null">HTDEF6,</if>
+            <if test="HTDEF7 != null">HTDEF7,</if>
+            <if test="HTDEF8 != null">HTDEF8,</if>
+            <if test="HTDEF9 != null">HTDEF9,</if>
+            <if test="HTDEF10 != null">HTDEF10,</if>
+            <if test="HTDEF11 != null">HTDEF11,</if>
+            <if test="HTDEF12 != null">HTDEF12,</if>
+            <if test="HTDEF13 != null">HTDEF13,</if>
+            <if test="HTDEF14 != null">HTDEF14,</if>
+            <if test="HTDEF15 != null">HTDEF15,</if>
+            <if test="HTDEF16 != null">HTDEF16,</if>
+            <if test="HTDEF17 != null">HTDEF17,</if>
+            <if test="HTDEF18 != null">HTDEF18,</if>
+            <if test="HTDEF19 != null">HTDEF19,</if>
+            <if test="HTDEF20 != null">HTDEF20,</if>
+        </trim>
+        values
+        <trim prefix="(" suffixOverrides="," suffix=")">
+
+            <if test="strSetupDate != null">#{strSetupDate},</if>
+            <if test="strSetupPerson != null">#{strSetupPerson},</if>
+            <if test="strCurrency != null">#{strCurrency},</if>
+            <if test="dblExchange != null">#{dblExchange},</if>
+            <if test="strPayOrderRemark != null">#{strPayOrderRemark},</if>
+            <if test="strPayOrderID != null">#{strPayOrderID},</if>
+            <if test="strContractID != null">#{strContractID},</if>
+            <if test="strContractName != null">#{strContractName},</if>
+            <if test="strBisectionUnit != null">#{strBisectionUnit},</if>
+            <if test="dblSumMoney != null">#{dblSumMoney},</if>
+            <if test="payDate != null">#{payDate},</if>
+            <if test="payMoney != null">#{payMoney},</if>
+            <if test="hasPayMoney != null">#{hasPayMoney},</if>
+            <if test="advPayment != null">#{advPayment},</if>
+            <if test="retePayment != null">#{retePayment},</if>
+            <if test="materPayment != null">#{materPayment},</if>
+            <if test="other1 != null">#{other1},</if>
+            <if test="other2 != null">#{other2},</if>
+            <if test="other3 != null">#{other3},</if>
+            <if test="other4 != null">#{other4},</if>
+            <if test="other5 != null">#{other5},</if>
+            <if test="other6 != null">#{other6},</if>
+            <if test="other7 != null">#{other7},</if>
+            <if test="other8 != null">#{other8},</if>
+            <if test="other9 != null">#{other9},</if>
+            <if test="other10 != null">#{other10},</if>
+            <if test="subtotal != null">#{subtotal},</if>
+            <if test="payRemark != null">#{payRemark},</if>
+            <if test="DR != null">#{DR},</if>
+            <if test="TS != null">#{TS},</if>
+            <if test="HTDEF1 != null">#{HTDEF1},</if>
+            <if test="HTDEF2 != null">#{HTDEF2},</if>
+            <if test="HTDEF3 != null">#{HTDEF3},</if>
+            <if test="HTDEF4 != null">#{HTDEF4},</if>
+            <if test="HTDEF5 != null">#{HTDEF5},</if>
+            <if test="HTDEF6 != null">#{HTDEF6},</if>
+            <if test="HTDEF7 != null">#{HTDEF7},</if>
+            <if test="HTDEF8 != null">#{HTDEF8},</if>
+            <if test="HTDEF9 != null">#{HTDEF9},</if>
+            <if test="HTDEF10 != null">#{HTDEF10},</if>
+            <if test="HTDEF11 != null">#{HTDEF11},</if>
+            <if test="HTDEF12 != null">#{HTDEF12},</if>
+            <if test="HTDEF13 != null">#{HTDEF13},</if>
+            <if test="HTDEF14 != null">#{HTDEF14},</if>
+            <if test="HTDEF15 != null">#{HTDEF15},</if>
+            <if test="HTDEF16 != null">#{HTDEF16},</if>
+            <if test="HTDEF17 != null">#{HTDEF17},</if>
+            <if test="HTDEF18 != null">#{HTDEF18},</if>
+            <if test="HTDEF19 != null">#{HTDEF19},</if>
+            <if test="HTDEF20 != null">#{HTDEF20},</if>
+        </trim>
+    </insert>
+
+    <!--查找CmPayOrder-->
+    <select id="getByCond" resultType="CmPayOrder">
+        select * from HT_CM_PayOrder
+        <where>
+            <if test="search!=null and search!=''">
+                ${search}
+            </if>
+        </where>
+    </select>
+    <!--删除-->
+    <delete id="delete">
+        delete from HT_CM_PayOrder where ID= #{ids}
+    </delete>
+
+    <!--查询数据-->
+    <select id="queryFD" resultType="CmPayOrder">
+        select * from HT_CM_PayOrder
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
+    <!-- 修改CmPayOrder -->
+    <update id="update" parameterType="CmPayOrder">
+        update ht_cm_payorder
+        <set>
+            <if test="strSetupDate!=null">strSetupDate = #{strSetupDate},</if>
+            <if test="strSetupPerson!=null">strSetupPerson = #{strSetupPerson},</if>
+            <if test="strCurrency!=null">strCurrency = #{strCurrency},</if>
+            <if test="dblExchange!=null">dblExchange = #{dblExchange},</if>
+            <if test="strPayOrderRemark!=null">strPayOrderRemark = #{strPayOrderRemark},</if>
+            <if test="strPayOrderID!=null">strPayOrderID = #{strPayOrderID},</if>
+            <if test="strContractID!=null">strContractID = #{strContractID},</if>
+            <if test="strContractName!=null">strContractName = #{strContractName},</if>
+            <if test="strBisectionUnit!=null">strBisectionUnit = #{strBisectionUnit},</if>
+            <if test="dblSumMoney!=null">dblSumMoney = #{dblSumMoney},</if>
+            <if test="payDate!=null">payDate = #{payDate},</if>
+            <if test="payMoney!=null">payMoney = #{payMoney},</if>
+            <if test="hasPayMoney!=null">hasPayMoney = #{hasPayMoney},</if>
+            <if test="advPayment!=null">advPayment = #{advPayment},</if>
+            <if test="retePayment!=null">retePayment = #{retePayment},</if>
+            <if test="materPayment!=null">materPayment = #{materPayment},</if>
+            <if test="other1!=null">other1 = #{other1},</if>
+            <if test="other2!=null">other2 = #{other2},</if>
+            <if test="other3!=null">other3 = #{other3},</if>
+            <if test="other4!=null">other4 = #{other4},</if>
+            <if test="other5!=null">other5 = #{other5},</if>
+            <if test="other6!=null">other6 = #{other6},</if>
+            <if test="other7!=null">other7 = #{other7},</if>
+            <if test="other8!=null">other8 = #{other8},</if>
+            <if test="other9!=null">other9 = #{other9},</if>
+            <if test="other10!=null">other10 = #{other10},</if>
+            <if test="subtotal!=null">subtotal = #{subtotal},</if>
+            <if test="payRemark!=null">payRemark = #{payRemark},</if>
+            <if test="DR!=null">DR = #{DR},</if>
+            <if test="TS!=null">TS = #{TS},</if>
+            <if test="HTDEF1!=null">HTDEF1 = #{HTDEF1},</if>
+            <if test="HTDEF2!=null">HTDEF2 = #{HTDEF2},</if>
+            <if test="HTDEF3!=null">HTDEF3 = #{HTDEF3},</if>
+            <if test="HTDEF4!=null">HTDEF4 = #{HTDEF4},</if>
+            <if test="HTDEF5!=null">HTDEF5 = #{HTDEF5},</if>
+            <if test="HTDEF6!=null">HTDEF6 = #{HTDEF6},</if>
+            <if test="HTDEF7!=null">HTDEF7 = #{HTDEF7},</if>
+            <if test="HTDEF8!=null">HTDEF8 = #{HTDEF8},</if>
+            <if test="HTDEF9!=null">HTDEF9 = #{HTDEF9},</if>
+            <if test="HTDEF10!=null">HTDEF10 = #{HTDEF10},</if>
+            <if test="HTDEF11!=null">HTDEF11 = #{HTDEF11},</if>
+            <if test="HTDEF12!=null">HTDEF12 = #{HTDEF12},</if>
+            <if test="HTDEF13!=null">HTDEF13 = #{HTDEF13},</if>
+            <if test="HTDEF14!=null">HTDEF14 = #{HTDEF14},</if>
+            <if test="HTDEF15!=null">HTDEF15 = #{HTDEF15},</if>
+            <if test="HTDEF16!=null">HTDEF16 = #{HTDEF16},</if>
+            <if test="HTDEF17!=null">HTDEF17 = #{HTDEF17},</if>
+            <if test="HTDEF18!=null">HTDEF18 = #{HTDEF18},</if>
+            <if test="HTDEF19!=null">HTDEF19 = #{HTDEF19},</if>
+            <if test="HTDEF20!=null">HTDEF20 = #{HTDEF20},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+    <select id="getPayOrderId" resultType="string">
+        select max(strPayOrderID) as strPayOrderID  from HTMS..HT_CM_PayOrder where strPayOrderID like '%' + convert(varchar(100), getdate(), 112) + '%'
+    </select>
+
+
+    <select id="getBalancesItem" resultType="BalancesItem">
+        select t1.GUID,t1.cContractID,t1.cDefine1,t.cBalanceID,t.id,t.cItemClass,t.cUnit,t.decCount,t.decNoRateUnitPrice,t.decRateMoney,t.decNoRateMoney,t.decRateUnitPrice,c.dblTotalCurrency,c.dblTotalQuantity from HTMS..HT_CM_Balances t left join HTMS..HT_CM_Balance t1 on t.cCode = t1.GUID left join HTMS..HT_CM_Contract c on c.strContractID=t1.cContractID
+         <if test="sql != null and sql != ''">
+            ${sql}
+        </if>
+    </select>
+</mapper>

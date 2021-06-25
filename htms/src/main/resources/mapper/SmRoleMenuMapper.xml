@@ -1,0 +1,84 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whxisoft.mapper.SmRoleMenuMapper">
+    <select id="getByCond" resultType="SmRoleMenu">
+        select * from IDM_SM_ROLEMENU
+        <where>
+            <if test="search!=null and search!=''">
+                ${search}
+            </if>
+        </where>
+    </select>
+
+
+    <!--查询已经选中的节点-->
+    <select id="queryBypkrole" resultType="string">
+        select a.pk_menu from IDM_SM_ROLEMENU a where a.pk_role = #{id}
+    </select>
+
+    <!-- 新增RoleMenu表 -->
+    <insert id="insertRoleMenu" parameterType="SmRoleMenu">
+        insert into IDM_SM_ROLEMENU
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="pk_role_menu != null">pk_role_menu,</if>
+            <if test="pk_role != null">pk_role,</if>
+            <if test="pk_menu != null">pk_menu,</if>
+            <if test="ts != null">ts,</if>
+            <if test="idmdef1 != null">idmdef1,</if>
+            <if test="idmdef2 != null">idmdef2,</if>
+            <if test="idmdef3 != null">idmdef3,</if>
+            <if test="idmdef4 != null">idmdef4,</if>
+            <if test="idmdef5 != null">idmdef5,</if>
+            <if test="idmdef6 != null">idmdef6,</if>
+            <if test="idmdef7 != null">idmdef7,</if>
+            <if test="idmdef8 != null">idmdef8,</if>
+            <if test="idmdef9 != null">idmdef9,</if>
+            <if test="idmdef10 != null">idmdef10,</if>
+        </trim>
+        values
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="pk_role_menu != null">#{pk_role_menu},</if>
+            <if test="pk_role != null">#{pk_role},</if>
+            <if test="pk_menu != null">#{pk_menu},</if>
+            <if test="ts != null">#{ts},</if>
+            <if test="idmdef1 != null">#{idmdef1},</if>
+            <if test="idmdef2 != null">#{idmdef2},</if>
+            <if test="idmdef3 != null">#{idmdef3},</if>
+            <if test="idmdef4 != null">#{idmdef4},</if>
+            <if test="idmdef5 != null">#{idmdef5},</if>
+            <if test="idmdef6 != null">#{idmdef6},</if>
+            <if test="idmdef7 != null">#{idmdef7},</if>
+            <if test="idmdef8 != null">#{idmdef8},</if>
+            <if test="idmdef9 != null">#{idmdef9},</if>
+            <if test="idmdef10 != null">#{idmdef10},</if>
+        </trim>
+    </insert>
+
+    <!-- 修改RoleMenu -->
+    <update id="update" parameterType="SmRoleMenu">
+        update IDM_SM_ROLEMENU
+        <set>
+            <if test="pk_role!=null">pk_role = #{pk_role},</if>
+            <if test="pk_menu!=null">pk_menu = #{pk_menu},</if>
+            <if test="ts!=null">ts = #{ts},</if>
+            <if test="idmdef1!=null">idmdef1 = #{idmdef1},</if>
+            <if test="idmdef2!=null">idmdef2 = #{idmdef2},</if>
+            <if test="idmdef3!=null">idmdef3 = #{idmdef3},</if>
+            <if test="idmdef4!=null">idmdef4 = #{idmdef4},</if>
+            <if test="idmdef5!=null">idmdef5 = #{idmdef5},</if>
+            <if test="idmdef6!=null">idmdef6 = #{idmdef6},</if>
+            <if test="idmdef7!=null">idmdef7 = #{idmdef7},</if>
+            <if test="idmdef8!=null">idmdef8 = #{idmdef8},</if>
+            <if test="idmdef9!=null">idmdef9 = #{idmdef9},</if>
+            <if test="idmdef10!=null">idmdef10 = #{idmdef10},</if>
+        </set>
+        where pk_role_menu = #{pk_role_menu}
+    </update>
+
+    <delete id="delete">
+        delete from IDM_SM_ROLEMENU where pk_role = #{id}
+    </delete>
+
+</mapper>

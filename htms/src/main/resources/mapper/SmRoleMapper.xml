@@ -1,0 +1,111 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whxisoft.mapper.SmRoleMapper">
+    <select id="getByCond" resultType="SmRole">
+        select * from IDM_SM_ROLE
+        <where>
+            <if test="search!=null and search!=''">
+                ${search}
+            </if>
+        </where>
+    </select>
+
+    <select id="getById" resultType="SmRole">
+         select * from IDM_SM_ROLE where pk_role = #{id};
+    </select>
+
+    <!--查询所有的角色-->
+    <select id="getRoleByStatus" resultType="SmRole">
+        select * from IDM_SM_ROLE where status = 0;
+    </select>
+
+    <!--查询角色表中角色名称是否重复-->
+    <select id="getUsername" resultType="SmRole">
+        SELECT * from IDM_SM_ROLE where rolename = #{username}
+    </select>
+
+    <!-- 新增Role -->
+    <insert id="save" parameterType="SmRole" useGeneratedKeys="true" keyProperty="pk_role">
+        insert into idm_sm_role
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="rolecode != null">rolecode,</if>
+            <if test="rolename != null">rolename,</if>
+            <if test="status != null">status,</if>
+            <if test="memo != null">memo,</if>
+            <if test="dr != null">dr,</if>
+            <if test="ts != null">ts,</if>
+            <if test="ids != null">ids,</if>
+            <if test="idmdef1 != null">idmdef1,</if>
+            <if test="idmdef2 != null">idmdef2,</if>
+            <if test="idmdef3 != null">idmdef3,</if>
+            <if test="idmdef4 != null">idmdef4,</if>
+            <if test="idmdef5 != null">idmdef5,</if>
+            <if test="idmdef6 != null">idmdef6,</if>
+            <if test="idmdef7 != null">idmdef7,</if>
+            <if test="idmdef8 != null">idmdef8,</if>
+            <if test="idmdef9 != null">idmdef9,</if>
+            <if test="idmdef10 != null">idmdef10,</if>
+        </trim>
+        values
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="rolecode != null">#{rolecode},</if>
+            <if test="rolename != null">#{rolename},</if>
+            <if test="status != null">#{status},</if>
+            <if test="memo != null">#{memo},</if>
+            <if test="dr != null">#{dr},</if>
+            <if test="ts != null">#{ts},</if>
+            <if test="ids != null">#{ids},</if>
+            <if test="idmdef1 != null">#{idmdef1},</if>
+            <if test="idmdef2 != null">#{idmdef2},</if>
+            <if test="idmdef3 != null">#{idmdef3},</if>
+            <if test="idmdef4 != null">#{idmdef4},</if>
+            <if test="idmdef5 != null">#{idmdef5},</if>
+            <if test="idmdef6 != null">#{idmdef6},</if>
+            <if test="idmdef7 != null">#{idmdef7},</if>
+            <if test="idmdef8 != null">#{idmdef8},</if>
+            <if test="idmdef9 != null">#{idmdef9},</if>
+            <if test="idmdef10 != null">#{idmdef10},</if>
+        </trim>
+    </insert>
+
+    <!-- 修改Role -->
+    <update id="update" parameterType="SmRole">
+        update IDM_SM_ROLE
+        <set>
+            <if test="rolecode!=null">rolecode = #{rolecode},</if>
+            <if test="rolename!=null">rolename = #{rolename},</if>
+            <if test="status!=null">status = #{status},</if>
+            <if test="memo!=null">memo = #{memo},</if>
+            <if test="dr!=null">dr = #{dr},</if>
+            <if test="ts!=null">ts = #{ts},</if>
+            <if test="idmdef1!=null">idmdef1 = #{idmdef1},</if>
+            <if test="idmdef2!=null">idmdef2 = #{idmdef2},</if>
+            <if test="idmdef3!=null">idmdef3 = #{idmdef3},</if>
+            <if test="idmdef4!=null">idmdef4 = #{idmdef4},</if>
+            <if test="idmdef5!=null">idmdef5 = #{idmdef5},</if>
+            <if test="idmdef6!=null">idmdef6 = #{idmdef6},</if>
+            <if test="idmdef7!=null">idmdef7 = #{idmdef7},</if>
+            <if test="idmdef8!=null">idmdef8 = #{idmdef8},</if>
+            <if test="idmdef9!=null">idmdef9 = #{idmdef9},</if>
+            <if test="idmdef10!=null">idmdef10 = #{idmdef10},</if>
+        </set>
+        where pk_role = #{pk_role};
+        update IDM_SM_USER
+        <set>
+        <if test="status!=null">status = #{status},</if>
+        </set>
+        where pk_role = #{pk_role};
+    </update>
+
+    <delete id="delete">
+        delete from IDM_SM_ROLE where pk_role = #{id}
+    </delete>
+
+    <!--验证角色名称是否重复-->
+    <select id="checkRolename"  resultType="int">
+        select count(*) from IDM_SM_ROLE where  ROLENAME= #{rolename}
+    </select>
+
+</mapper>

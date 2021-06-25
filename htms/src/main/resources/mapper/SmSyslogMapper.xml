@@ -1,0 +1,63 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whxisoft.mapper.SmSyslogMapper">
+    <select id="getByCond" resultType="SmSyslog">
+        select * from idm_sm_syslog
+        <where>
+            <if test="search!=null and search!=''">
+                ${search}
+            </if>
+        </where>
+        order by opertime desc
+    </select>
+
+    <!-- 新增SmSyslog -->
+    <insert id="save" parameterType="SmSyslog">
+        insert into idm_sm_syslog
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="pk_log != null">pk_log,</if>
+            <if test="funname != null">funname,</if>
+            <if test="pk_user != null">pk_user,</if>
+            <if test="username != null">username,</if>
+            <if test="opertime != null">opertime,</if>
+            <if test="status != null">status,</if>
+            <if test="idmdef1 != null">idmdef1,</if>
+            <if test="idmdef2 != null">idmdef2,</if>
+            <if test="idmdef3 != null">idmdef3,</if>
+            <if test="idmdef4 != null">idmdef4,</if>
+            <if test="idmdef5 != null">idmdef5,</if>
+            <if test="idmdef6 != null">idmdef6,</if>
+            <if test="idmdef7 != null">idmdef7,</if>
+            <if test="idmdef8 != null">idmdef8,</if>
+            <if test="idmdef9 != null">idmdef9,</if>
+            <if test="idmdef10 != null">idmdef10,</if>
+        </trim>
+        values
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="pk_log != null">#{pk_log},</if>
+            <if test="funname != null">#{funname},</if>
+            <if test="pk_user != null">#{pk_user},</if>
+            <if test="username != null">#{username},</if>
+            <if test="opertime != null">#{opertime},</if>
+            <if test="status != null">#{status},</if>
+            <if test="idmdef1 != null">#{idmdef1},</if>
+            <if test="idmdef2 != null">#{idmdef2},</if>
+            <if test="idmdef3 != null">#{idmdef3},</if>
+            <if test="idmdef4 != null">#{idmdef4},</if>
+            <if test="idmdef5 != null">#{idmdef5},</if>
+            <if test="idmdef6 != null">#{idmdef6},</if>
+            <if test="idmdef7 != null">#{idmdef7},</if>
+            <if test="idmdef8 != null">#{idmdef8},</if>
+            <if test="idmdef9 != null">#{idmdef9},</if>
+            <if test="idmdef10 != null">#{idmdef10},</if>
+        </trim>
+    </insert>
+    <delete id="delete">
+        delete from idm_sm_syslog where pk_log = #{ids}
+    </delete>
+    <delete id="deleteAll">
+        delete from idm_sm_syslog
+    </delete>
+</mapper>

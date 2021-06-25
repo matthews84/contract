@@ -1,0 +1,348 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whxisoft.mapper.CmBalancesMapper">
+    <select id="getContract" resultType="CmContract">
+        select
+        t.GUID,t.strContractID,t.strContractGrp,t.strContractType,t.strContractKind,t.strContractName,t.strBisectionUnit,t.strParentID,t.strRepair,t.strBisectionPerson,t.strContractOrderDate,t.strContractStartDate,t.strContractEndDate,t.strContractDesc,t.dblMassassureScale,t.dblMassassure,t.cDefine1,t.cDefine2,t.cDefine3,t.cDefine4,t.cDefine5,t.cDefine6,t.cDefine7,t.cDefine8,t.cDefine9,t.cDefine10,t.cDefine11,t.cDefine12,t.cDefine13,t.cDefine14,t.cDefine15,t.cDefine16,t.strSetupPerson,t.strSetupDate,t.strEndCasePerson,t.strEndCaseDate,t.strInurePerson,t.strInureDate,t.strDeptID,t.strPersonID,t.intVaryID,t.strVaryCauseID,t.dtVaryDate,t.strVaryPersonID,t.strVaryPassPersonID,t.intPre,t.strWay,t.strCurrency,t.dblExchange,t.strVaryPerson,t.strSpare1,t.strSpare2,t.strSpare3,t.strSource,t.dblTotalCurrency,t.dblExecCurrency,t.dblTotalQuantity,t.dblExecQuqantity,t.cBusType,t.cSCCode,t.cGatheringPlan,t.IsWfControlled,t.IverifyState,t.IreturnCount,t.intAuditSymbol,t.cZbjComputeMode,t.dtZbjStartDate,t.dtZbjEndDate,t.bUseStage,t.cStageGroupCode,t.dtCreateTime,t.dtModifyTime,t.dtModifyDate,t.dtEffectTime,t.cModifer,t.dtVaryCreateDate,t.dtVaryCreateTime,t.dtVaryModifyTime,t.dtVaryModifyDate,t.dtVaryEffectTime,t.cVaryModifer,t.iStatus,t.intExecControlType,t.cExecControlVouch,t.iPrintCount,t.iincotermid,t.dlastladedate,t.csportcode,t.ctportcode,t.caportcode,t.contractId,t.contractStatus,t.dr,t.ts
+        from ht_cm_contract t where t.guid = #{guid}
+    </select>
+    <!--合同结算单参照-->
+    <select id="getContractItem" resultType="CmBalances">
+        select t.ID as id,t.strName as cItemClass,t.strMeasureUnit as cUnit,t.dblPriceRMB as decRateUnitPrice,t.dblQuantity as decCount,t.dblSumRMB as decRateMoney,t.strCode as strCode
+        from HT_CM_Contract_Item t
+        where t.dblQuantity is not null and t.dblPriceRMB is not null and t.dblSumRMB is not null
+
+        <if test="rowIdList != null and rowIdList.size() != 0">
+            and t.RowGUID in
+            <foreach collection="rowIdList" item="RowGUID" open="(" close=")" separator=",">
+                #{RowGUID}
+            </foreach>
+        </if>
+    </select>
+
+    <!--结算单列表-->
+    <select id="getContractAndItemAndCmBalance" resultType="ContractAndItemAndCmBalance">
+        select t2.GUID,t1.strContractID,t1.strContractName,t1.dblTotalCurrency,t1.dblTotalQuantity,t.RowGUID,t.strCode,t.strName,t.strMeasureUnit,t.dblQuantity,t.dblPriceRMB,t.dblSumRMB,t2.cBalanceID,t2.decRateMoney,t2.BalancesGuid,t2.decCount,t2.decRateUnitPrice
+        from HT_CM_Contract_Item t left join HT_CM_Contract t1 on t.GUID = t1.GUID left join HT_CM_Balances t2 on t2.id=t.ID
+        where t2.decCount is not null and t2.decRateUnitPrice is not null and t2.decRateMoney is not null
+        <if test="sql != null and sql != ''">
+            ${sql}
+        </if>
+    </select>
+    <!--收付单回显结算单列表-->
+    <select id="getContractAndCmBalance" resultType="ContractAndCmBalance">
+        select t1.GUID,t1.strContractID,t1.strContractName,t1.strBisectionUnit,t1.dblTotalCurrency,t1.dblTotalQuantity,t.RowGUID,t.strCode,t.strName,t.strMeasureUnit,t.dblQuantity,t.dblPriceRMB,t.dblSumRMB,t2.cBalanceID,t2.decRateMoney,t2.BalancesGuid
+        from HT_CM_Contract_Item t left join HT_CM_Contract t1 on t.GUID = t1.GUID left join HT_CM_Balances t2 on t2.id=t.ID
+        <if test="GUIdList != null and GUIdList.size() != 0">
+            where t1.GUID in
+            <foreach collection="GUIdList" item="GUID" open="(" close=")" separator=",">
+                #{GUID}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="getContractItemId" resultType="string">
+        select t.RowGUID
+        from HT_CM_Contract_Item t
+        where t.dblQuantity is not null and t.dblPriceRMB is not null and t.dblSumRMB is not null
+        and t.GUID = #{guid}
+    </select>
+
+    <select id="getBalanceId" resultType="string">
+        select max(cBalanceID) as cBalanceID  from HT_CM_Balance where cBalanceID like '%' + convert(varchar(100), getdate(), 112) + '%'
+    </select>
+
+    <!-- 新增CmBalances -->
+    <insert id="save" parameterType="CmBalances">
+        insert into ht_cm_balances
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="cBalanceID != null">cBalanceID,</if>
+            <if test="id != null">id,</if>
+            <if test="Guid != null">Guid,</if>
+            <if test="cCode != null">cCode,</if>
+            <if test="cItemClass != null">cItemClass,</if>
+            <if test="cItemSource != null">cItemSource,</if>
+            <if test="cItemID != null">cItemID,</if>
+            <if test="decCount != null">decCount,</if>
+            <if test="cUnit != null">cUnit,</if>
+            <if test="decRate != null">decRate,</if>
+            <if test="decNoRateUnitPrice != null">decNoRateUnitPrice,</if>
+            <if test="decRateMoney != null">decRateMoney,</if>
+            <if test="decNoRateMoney != null">decNoRateMoney,</if>
+            <if test="decRateUnitPrice != null">decRateUnitPrice,</if>
+            <if test="Agio != null">Agio,</if>
+            <if test="cRemark != null">cRemark,</if>
+            <if test="Modifytamp != null">Modifytamp,</if>
+            <if test="cDefine22 != null">cDefine22,</if>
+            <if test="cDefine23 != null">cDefine23,</if>
+            <if test="cDefine24 != null">cDefine24,</if>
+            <if test="cDefine25 != null">cDefine25,</if>
+            <if test="cDefine26 != null">cDefine26,</if>
+            <if test="cDefine27 != null">cDefine27,</if>
+            <if test="cDefine28 != null">cDefine28,</if>
+            <if test="cDefine29 != null">cDefine29,</if>
+            <if test="cDefine30 != null">cDefine30,</if>
+            <if test="cDefine31 != null">cDefine31,</if>
+            <if test="cDefine32 != null">cDefine32,</if>
+            <if test="cDefine33 != null">cDefine33,</if>
+            <if test="cDefine34 != null">cDefine34,</if>
+            <if test="cDefine35 != null">cDefine35,</if>
+            <if test="cDefine36 != null">cDefine36,</if>
+            <if test="cDefine37 != null">cDefine37,</if>
+            <if test="BalancesGuid != null">BalancesGuid,</if>
+            <if test="strSpare1 != null">strSpare1,</if>
+            <if test="strSpare2 != null">strSpare2,</if>
+            <if test="strSpare3 != null">strSpare3,</if>
+            <if test="decRMB != null">decRMB,</if>
+            <if test="cKmCode != null">cKmCode,</if>
+            <if test="decSum != null">decSum,</if>
+            <if test="decSumRMB != null">decSumRMB,</if>
+            <if test="decNoRateRMB != null">decNoRateRMB,</if>
+            <if test="cCusCode != null">cCusCode,</if>
+            <if test="cVenCode != null">cVenCode,</if>
+            <if test="AuxMeasureUnit != null">AuxMeasureUnit,</if>
+            <if test="ConversionRate != null">ConversionRate,</if>
+            <if test="ExecPieceNum != null">ExecPieceNum,</if>
+            <if test="cExecID != null">cExecID,</if>
+            <if test="ExecDetailGUID != null">ExecDetailGUID,</if>
+            <if test="SrcBalancesGuid != null">SrcBalancesGuid,</if>
+            <if test="decZbjRatio != null">decZbjRatio,</if>
+            <if test="decNoRateZbjMoney != null">decNoRateZbjMoney,</if>
+            <if test="decZbjMoney != null">decZbjMoney,</if>
+            <if test="dtZbjStartDate != null">dtZbjStartDate,</if>
+            <if test="dtZbjEndDate != null">dtZbjEndDate,</if>
+            <if test="cStageCode != null">cStageCode,</if>
+            <if test="dtStageEndDate != null">dtStageEndDate,</if>
+            <if test="BalanceGuid != null">BalanceGuid,</if>
+            <if test="cFree1 != null">cFree1,</if>
+            <if test="cFree2 != null">cFree2,</if>
+            <if test="cFree3 != null">cFree3,</if>
+            <if test="cFree4 != null">cFree4,</if>
+            <if test="cFree5 != null">cFree5,</if>
+            <if test="cFree6 != null">cFree6,</if>
+            <if test="cFree7 != null">cFree7,</if>
+            <if test="cFree8 != null">cFree8,</if>
+            <if test="cFree9 != null">cFree9,</if>
+            <if test="cFree10 != null">cFree10,</if>
+            <if test="cInvCode != null">cInvCode,</if>
+            <if test="cItemName != null">cItemName,</if>
+            <if test="DR != null">DR,</if>
+            <if test="TS != null">TS,</if>
+            <if test="HTDEF1 != null">HTDEF1,</if>
+            <if test="HTDEF2 != null">HTDEF2,</if>
+            <if test="HTDEF3 != null">HTDEF3,</if>
+            <if test="HTDEF4 != null">HTDEF4,</if>
+            <if test="HTDEF5 != null">HTDEF5,</if>
+            <if test="HTDEF6 != null">HTDEF6,</if>
+            <if test="HTDEF7 != null">HTDEF7,</if>
+            <if test="HTDEF8 != null">HTDEF8,</if>
+            <if test="HTDEF9 != null">HTDEF9,</if>
+            <if test="HTDEF10 != null">HTDEF10,</if>
+            <if test="HTDEF11 != null">HTDEF11,</if>
+            <if test="HTDEF12 != null">HTDEF12,</if>
+            <if test="HTDEF13 != null">HTDEF13,</if>
+            <if test="HTDEF14 != null">HTDEF14,</if>
+            <if test="HTDEF15 != null">HTDEF15,</if>
+            <if test="HTDEF16 != null">HTDEF16,</if>
+            <if test="HTDEF17 != null">HTDEF17,</if>
+            <if test="HTDEF18 != null">HTDEF18,</if>
+            <if test="HTDEF19 != null">HTDEF19,</if>
+            <if test="HTDEF20 != null">HTDEF20,</if>
+        </trim>
+        values
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="cBalanceID != null">#{cBalanceID},</if>
+            <if test="id != null">#{id},</if>
+            <if test="Guid != null">#{Guid},</if>
+            <if test="cCode != null">#{cCode},</if>
+            <if test="cItemClass != null">#{cItemClass},</if>
+            <if test="cItemSource != null">#{cItemSource},</if>
+            <if test="cItemID != null">#{cItemID},</if>
+            <if test="decCount != null">#{decCount},</if>
+            <if test="cUnit != null">#{cUnit},</if>
+            <if test="decRate != null">#{decRate},</if>
+            <if test="decNoRateUnitPrice != null">#{decNoRateUnitPrice},</if>
+            <if test="decRateMoney != null">#{decRateMoney},</if>
+            <if test="decNoRateMoney != null">#{decNoRateMoney},</if>
+            <if test="decRateUnitPrice != null">#{decRateUnitPrice},</if>
+            <if test="Agio != null">#{Agio},</if>
+            <if test="cRemark != null">#{cRemark},</if>
+            <if test="Modifytamp != null">#{Modifytamp},</if>
+            <if test="cDefine22 != null">#{cDefine22},</if>
+            <if test="cDefine23 != null">#{cDefine23},</if>
+            <if test="cDefine24 != null">#{cDefine24},</if>
+            <if test="cDefine25 != null">#{cDefine25},</if>
+            <if test="cDefine26 != null">#{cDefine26},</if>
+            <if test="cDefine27 != null">#{cDefine27},</if>
+            <if test="cDefine28 != null">#{cDefine28},</if>
+            <if test="cDefine29 != null">#{cDefine29},</if>
+            <if test="cDefine30 != null">#{cDefine30},</if>
+            <if test="cDefine31 != null">#{cDefine31},</if>
+            <if test="cDefine32 != null">#{cDefine32},</if>
+            <if test="cDefine33 != null">#{cDefine33},</if>
+            <if test="cDefine34 != null">#{cDefine34},</if>
+            <if test="cDefine35 != null">#{cDefine35},</if>
+            <if test="cDefine36 != null">#{cDefine36},</if>
+            <if test="cDefine37 != null">#{cDefine37},</if>
+            <if test="BalancesGuid != null">#{BalancesGuid},</if>
+            <if test="strSpare1 != null">#{strSpare1},</if>
+            <if test="strSpare2 != null">#{strSpare2},</if>
+            <if test="strSpare3 != null">#{strSpare3},</if>
+            <if test="decRMB != null">#{decRMB},</if>
+            <if test="cKmCode != null">#{cKmCode},</if>
+            <if test="decSum != null">#{decSum},</if>
+            <if test="decSumRMB != null">#{decSumRMB},</if>
+            <if test="decNoRateRMB != null">#{decNoRateRMB},</if>
+            <if test="cCusCode != null">#{cCusCode},</if>
+            <if test="cVenCode != null">#{cVenCode},</if>
+            <if test="AuxMeasureUnit != null">#{AuxMeasureUnit},</if>
+            <if test="ConversionRate != null">#{ConversionRate},</if>
+            <if test="ExecPieceNum != null">#{ExecPieceNum},</if>
+            <if test="cExecID != null">#{cExecID},</if>
+            <if test="ExecDetailGUID != null">#{ExecDetailGUID},</if>
+            <if test="SrcBalancesGuid != null">#{SrcBalancesGuid},</if>
+            <if test="decZbjRatio != null">#{decZbjRatio},</if>
+            <if test="decNoRateZbjMoney != null">#{decNoRateZbjMoney},</if>
+            <if test="decZbjMoney != null">#{decZbjMoney},</if>
+            <if test="dtZbjStartDate != null">#{dtZbjStartDate},</if>
+            <if test="dtZbjEndDate != null">#{dtZbjEndDate},</if>
+            <if test="cStageCode != null">#{cStageCode},</if>
+            <if test="dtStageEndDate != null">#{dtStageEndDate},</if>
+            <if test="BalanceGuid != null">#{BalanceGuid},</if>
+            <if test="cFree1 != null">#{cFree1},</if>
+            <if test="cFree2 != null">#{cFree2},</if>
+            <if test="cFree3 != null">#{cFree3},</if>
+            <if test="cFree4 != null">#{cFree4},</if>
+            <if test="cFree5 != null">#{cFree5},</if>
+            <if test="cFree6 != null">#{cFree6},</if>
+            <if test="cFree7 != null">#{cFree7},</if>
+            <if test="cFree8 != null">#{cFree8},</if>
+            <if test="cFree9 != null">#{cFree9},</if>
+            <if test="cFree10 != null">#{cFree10},</if>
+            <if test="cInvCode != null">#{cInvCode},</if>
+            <if test="cItemName != null">#{cItemName},</if>
+            <if test="DR != null">#{DR},</if>
+            <if test="TS != null">#{TS},</if>
+            <if test="HTDEF1 != null">#{HTDEF1},</if>
+            <if test="HTDEF2 != null">#{HTDEF2},</if>
+            <if test="HTDEF3 != null">#{HTDEF3},</if>
+            <if test="HTDEF4 != null">#{HTDEF4},</if>
+            <if test="HTDEF5 != null">#{HTDEF5},</if>
+            <if test="HTDEF6 != null">#{HTDEF6},</if>
+            <if test="HTDEF7 != null">#{HTDEF7},</if>
+            <if test="HTDEF8 != null">#{HTDEF8},</if>
+            <if test="HTDEF9 != null">#{HTDEF9},</if>
+            <if test="HTDEF10 != null">#{HTDEF10},</if>
+            <if test="HTDEF11 != null">#{HTDEF11},</if>
+            <if test="HTDEF12 != null">#{HTDEF12},</if>
+            <if test="HTDEF13 != null">#{HTDEF13},</if>
+            <if test="HTDEF14 != null">#{HTDEF14},</if>
+            <if test="HTDEF15 != null">#{HTDEF15},</if>
+            <if test="HTDEF16 != null">#{HTDEF16},</if>
+            <if test="HTDEF17 != null">#{HTDEF17},</if>
+            <if test="HTDEF18 != null">#{HTDEF18},</if>
+            <if test="HTDEF19 != null">#{HTDEF19},</if>
+            <if test="HTDEF20 != null">#{HTDEF20},</if>
+        </trim>
+    </insert>
+
+    <!-- 修改CmBalances -->
+    <update id="update" parameterType="CmBalances">
+        update ht_cm_balances
+        <set>
+            <if test="cBalanceID!=null">cBalanceID = #{cBalanceID},</if>
+            <if test="id!=null">id = #{id},</if>
+            <if test="Guid!=null">Guid = #{Guid},</if>
+            <if test="cCode!=null">cCode = #{cCode},</if>
+            <if test="cItemClass!=null">cItemClass = #{cItemClass},</if>
+            <if test="cItemSource!=null">cItemSource = #{cItemSource},</if>
+            <if test="cItemID!=null">cItemID = #{cItemID},</if>
+            <if test="decCount!=null">decCount = #{decCount},</if>
+            <if test="cUnit!=null">cUnit = #{cUnit},</if>
+            <if test="decRate!=null">decRate = #{decRate},</if>
+            <if test="decNoRateUnitPrice!=null">decNoRateUnitPrice = #{decNoRateUnitPrice},</if>
+            <if test="decRateMoney!=null">decRateMoney = #{decRateMoney},</if>
+            <if test="decNoRateMoney!=null">decNoRateMoney = #{decNoRateMoney},</if>
+            <if test="decRateUnitPrice!=null">decRateUnitPrice = #{decRateUnitPrice},</if>
+            <if test="Agio!=null">Agio = #{Agio},</if>
+            <if test="cRemark!=null">cRemark = #{cRemark},</if>
+            <if test="Modifytamp!=null">Modifytamp = #{Modifytamp},</if>
+            <if test="cDefine22!=null">cDefine22 = #{cDefine22},</if>
+            <if test="cDefine23!=null">cDefine23 = #{cDefine23},</if>
+            <if test="cDefine24!=null">cDefine24 = #{cDefine24},</if>
+            <if test="cDefine25!=null">cDefine25 = #{cDefine25},</if>
+            <if test="cDefine26!=null">cDefine26 = #{cDefine26},</if>
+            <if test="cDefine27!=null">cDefine27 = #{cDefine27},</if>
+            <if test="cDefine28!=null">cDefine28 = #{cDefine28},</if>
+            <if test="cDefine29!=null">cDefine29 = #{cDefine29},</if>
+            <if test="cDefine30!=null">cDefine30 = #{cDefine30},</if>
+            <if test="cDefine31!=null">cDefine31 = #{cDefine31},</if>
+            <if test="cDefine32!=null">cDefine32 = #{cDefine32},</if>
+            <if test="cDefine33!=null">cDefine33 = #{cDefine33},</if>
+            <if test="cDefine34!=null">cDefine34 = #{cDefine34},</if>
+            <if test="cDefine35!=null">cDefine35 = #{cDefine35},</if>
+            <if test="cDefine36!=null">cDefine36 = #{cDefine36},</if>
+            <if test="cDefine37!=null">cDefine37 = #{cDefine37},</if>
+            <if test="strSpare1!=null">strSpare1 = #{strSpare1},</if>
+            <if test="strSpare2!=null">strSpare2 = #{strSpare2},</if>
+            <if test="strSpare3!=null">strSpare3 = #{strSpare3},</if>
+            <if test="decRMB!=null">decRMB = #{decRMB},</if>
+            <if test="cKmCode!=null">cKmCode = #{cKmCode},</if>
+            <if test="decSum!=null">decSum = #{decSum},</if>
+            <if test="decSumRMB!=null">decSumRMB = #{decSumRMB},</if>
+            <if test="decNoRateRMB!=null">decNoRateRMB = #{decNoRateRMB},</if>
+            <if test="cCusCode!=null">cCusCode = #{cCusCode},</if>
+            <if test="cVenCode!=null">cVenCode = #{cVenCode},</if>
+            <if test="AuxMeasureUnit!=null">AuxMeasureUnit = #{AuxMeasureUnit},</if>
+            <if test="ConversionRate!=null">ConversionRate = #{ConversionRate},</if>
+            <if test="ExecPieceNum!=null">ExecPieceNum = #{ExecPieceNum},</if>
+            <if test="cExecID!=null">cExecID = #{cExecID},</if>
+            <if test="ExecDetailGUID!=null">ExecDetailGUID = #{ExecDetailGUID},</if>
+            <if test="SrcBalancesGuid!=null">SrcBalancesGuid = #{SrcBalancesGuid},</if>
+            <if test="decZbjRatio!=null">decZbjRatio = #{decZbjRatio},</if>
+            <if test="decNoRateZbjMoney!=null">decNoRateZbjMoney = #{decNoRateZbjMoney},</if>
+            <if test="decZbjMoney!=null">decZbjMoney = #{decZbjMoney},</if>
+            <if test="dtZbjStartDate!=null">dtZbjStartDate = #{dtZbjStartDate},</if>
+            <if test="dtZbjEndDate!=null">dtZbjEndDate = #{dtZbjEndDate},</if>
+            <if test="cStageCode!=null">cStageCode = #{cStageCode},</if>
+            <if test="dtStageEndDate!=null">dtStageEndDate = #{dtStageEndDate},</if>
+            <if test="BalanceGuid!=null">BalanceGuid = #{BalanceGuid},</if>
+            <if test="cFree1!=null">cFree1 = #{cFree1},</if>
+            <if test="cFree2!=null">cFree2 = #{cFree2},</if>
+            <if test="cFree3!=null">cFree3 = #{cFree3},</if>
+            <if test="cFree4!=null">cFree4 = #{cFree4},</if>
+            <if test="cFree5!=null">cFree5 = #{cFree5},</if>
+            <if test="cFree6!=null">cFree6 = #{cFree6},</if>
+            <if test="cFree7!=null">cFree7 = #{cFree7},</if>
+            <if test="cFree8!=null">cFree8 = #{cFree8},</if>
+            <if test="cFree9!=null">cFree9 = #{cFree9},</if>
+            <if test="cFree10!=null">cFree10 = #{cFree10},</if>
+            <if test="cInvCode!=null">cInvCode = #{cInvCode},</if>
+            <if test="cItemName!=null">cItemName = #{cItemName},</if>
+            <if test="DR!=null">DR = #{DR},</if>
+            <if test="TS!=null">TS = #{TS},</if>
+            <if test="HTDEF1!=null">HTDEF1 = #{HTDEF1},</if>
+            <if test="HTDEF2!=null">HTDEF2 = #{HTDEF2},</if>
+            <if test="HTDEF3!=null">HTDEF3 = #{HTDEF3},</if>
+            <if test="HTDEF4!=null">HTDEF4 = #{HTDEF4},</if>
+            <if test="HTDEF5!=null">HTDEF5 = #{HTDEF5},</if>
+            <if test="HTDEF6!=null">HTDEF6 = #{HTDEF6},</if>
+            <if test="HTDEF7!=null">HTDEF7 = #{HTDEF7},</if>
+            <if test="HTDEF8!=null">HTDEF8 = #{HTDEF8},</if>
+            <if test="HTDEF9!=null">HTDEF9 = #{HTDEF9},</if>
+            <if test="HTDEF10!=null">HTDEF10 = #{HTDEF10},</if>
+            <if test="HTDEF11!=null">HTDEF11 = #{HTDEF11},</if>
+            <if test="HTDEF12!=null">HTDEF12 = #{HTDEF12},</if>
+            <if test="HTDEF13!=null">HTDEF13 = #{HTDEF13},</if>
+            <if test="HTDEF14!=null">HTDEF14 = #{HTDEF14},</if>
+            <if test="HTDEF15!=null">HTDEF15 = #{HTDEF15},</if>
+            <if test="HTDEF16!=null">HTDEF16 = #{HTDEF16},</if>
+            <if test="HTDEF17!=null">HTDEF17 = #{HTDEF17},</if>
+            <if test="HTDEF18!=null">HTDEF18 = #{HTDEF18},</if>
+            <if test="HTDEF19!=null">HTDEF19 = #{HTDEF19},</if>
+            <if test="HTDEF20!=null">HTDEF20 = #{HTDEF20},</if>
+        </set>
+        where BalancesGuid = #{BalancesGuid}
+    </update>
+</mapper>

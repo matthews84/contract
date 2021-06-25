@@ -1,0 +1,47 @@
+spring:
+  datasource:
+    names: master,slave
+    master:
+      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      username: sa
+#      url: jdbc:sqlserver://localhost:1433;database=HTMS
+#      password: ht@123456
+#      url: jdbc:sqlserver://192.168.0.254:1433;database=HTMS
+#      password: hs@123456
+      url: jdbc:sqlserver://47.111.31.149:1433;database=htms-new
+      password: hs@123456
+    slave:
+      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      username: sa
+#      url: jdbc:sqlserver://localhost:1433;database=UFDATA_012_2012
+#      password: ht@123456
+#      url: jdbc:sqlserver://192.168.0.254:1433;database=UFDATA_999_2010
+#      password: hs@654321
+      url: jdbc:sqlserver://47.111.31.149:1433;database=htms-new
+      password: hs@123456
+  mvc:
+    static-path-pattern: /**
+    date-format: yyyy-MM-dd
+  devtools:
+    restart:
+      enabled: true
+mybatis:
+  type-aliases-package: com.whxisoft.pojo
+  mapper-locations: classpath:mapper/*.xml
+server:
+#  port: 8081
+  port: 8091
+  servlet:
+    context-path: /
+  tomcat:
+    uri-encoding: utf-8
+logging:
+  level:
+    com.whxisoft: debug
+pagehelper:
+  auto-runtime-dialect: true
+file:
+  # 文件上传目录
+  upload-folder: D:/HTMS/web/file/upload/
+  # 对外访问的资源路径
+  static-access-path: /upload/**

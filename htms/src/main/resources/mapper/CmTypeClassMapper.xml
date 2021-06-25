@@ -1,0 +1,125 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whxisoft.mapper.CmTypeClassMapper">
+    <select id="getByCond" resultType="CmTypeClass">
+        select * from HT_CM_TypeClass
+        <where>
+            <if test="search!=null and search!=''">
+                ${search}
+            </if>
+        </where>
+    </select>
+
+    <select id="getById" resultType="CmTypeClass">
+        select * from HT_CM_TypeClass
+        <where>
+            cClassCode = #{id}
+        </where>
+    </select>
+
+    <select id="getId" resultType="String">
+        select max(convert(int,a.cClassCode)) from HT_CM_TypeClass a where a.cParentKey = #{id}
+    </select>
+
+    <delete id="delete">
+        delete from HT_CM_TypeClass
+        <where>
+            cClassCode = #{id}
+        </where>
+    </delete>
+
+    <!-- 新增CmType -->
+    <insert id="save" parameterType="CmTypeClass">
+        insert into HT_CM_TypeClass
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="cClassCode != null">cClassCode,</if>
+            <if test="cClassName != null">cClassName,</if>
+            <if test="cParentKey != null">cParentKey,</if>
+            <if test="dr != null">dr,</if>
+            <if test="ts != null">ts,</if>
+            <if test="htdef1 != null">htdef1,</if>
+            <if test="htdef2 != null">htdef2,</if>
+            <if test="htdef3 != null">htdef3,</if>
+            <if test="htdef4 != null">htdef4,</if>
+            <if test="htdef5 != null">htdef5,</if>
+            <if test="htdef6 != null">htdef6,</if>
+            <if test="htdef7 != null">htdef7,</if>
+            <if test="htdef8 != null">htdef8,</if>
+            <if test="htdef9 != null">htdef9,</if>
+            <if test="htdef10 != null">htdef10,</if>
+            <if test="htdef11 != null">htdef11,</if>
+            <if test="htdef12 != null">htdef12,</if>
+            <if test="htdef13 != null">htdef13,</if>
+            <if test="htdef14 != null">htdef14,</if>
+            <if test="htdef15 != null">htdef15,</if>
+            <if test="htdef16 != null">htdef16,</if>
+            <if test="htdef17 != null">htdef17,</if>
+            <if test="htdef18 != null">htdef18,</if>
+            <if test="htdef19 != null">htdef19,</if>
+            <if test="htdef20 != null">htdef20,</if>
+        </trim>
+        values
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="cClassCode != null">#{cClassCode},</if>
+            <if test="cClassName != null">#{cClassName},</if>
+            <if test="cParentKey != null">#{cParentKey},</if>
+            <if test="dr != null">#{dr},</if>
+            <if test="ts != null">#{ts},</if>
+            <if test="htdef1 != null">#{htdef1},</if>
+            <if test="htdef2 != null">#{htdef2},</if>
+            <if test="htdef3 != null">#{htdef3},</if>
+            <if test="htdef4 != null">#{htdef4},</if>
+            <if test="htdef5 != null">#{htdef5},</if>
+            <if test="htdef6 != null">#{htdef6},</if>
+            <if test="htdef7 != null">#{htdef7},</if>
+            <if test="htdef8 != null">#{htdef8},</if>
+            <if test="htdef9 != null">#{htdef9},</if>
+            <if test="htdef10 != null">#{htdef10},</if>
+            <if test="htdef11 != null">#{htdef11},</if>
+            <if test="htdef12 != null">#{htdef12},</if>
+            <if test="htdef13 != null">#{htdef13},</if>
+            <if test="htdef14 != null">#{htdef14},</if>
+            <if test="htdef15 != null">#{htdef15},</if>
+            <if test="htdef16 != null">#{htdef16},</if>
+            <if test="htdef17 != null">#{htdef17},</if>
+            <if test="htdef18 != null">#{htdef18},</if>
+            <if test="htdef19 != null">#{htdef19},</if>
+            <if test="htdef20 != null">#{htdef20},</if>
+        </trim>
+    </insert>
+
+    <!-- 修改CmType -->
+    <update id="update" parameterType="CmTypeClass">
+        update HT_CM_TypeClass
+        <set>
+            <if test="cClassName != null">cClassName = #{cClassName},</if>
+            <if test="cParentKey != null">cParentKey = #{cParentKey},</if>
+            <if test="dr != null">dr = #{dr},</if>
+            <if test="ts != null">ts = #{ts},</if>
+            <if test="htdef1 != null">htdef1 = #{htdef1},</if>
+            <if test="htdef2 != null">htdef2 = #{htdef2},</if>
+            <if test="htdef3 != null">htdef3 = #{htdef3},</if>
+            <if test="htdef4 != null">htdef4 = #{htdef4},</if>
+            <if test="htdef5 != null">htdef5 = #{htdef5},</if>
+            <if test="htdef6 != null">htdef6 = #{htdef6},</if>
+            <if test="htdef7 != null">htdef7 = #{htdef7},</if>
+            <if test="htdef8 != null">htdef8 = #{htdef8},</if>
+            <if test="htdef9 != null">htdef9 = #{htdef9},</if>
+            <if test="htdef10 != null">htdef10 = #{htdef10},</if>
+            <if test="htdef11 != null">htdef11 = #{htdef11},</if>
+            <if test="htdef12 != null">htdef12 = #{htdef12},</if>
+            <if test="htdef13 != null">htdef13 = #{htdef13},</if>
+            <if test="htdef14 != null">htdef14 = #{htdef14},</if>
+            <if test="htdef15 != null">htdef15 = #{htdef15},</if>
+            <if test="htdef16 != null">htdef16 = #{htdef16},</if>
+            <if test="htdef17 != null">htdef17 = #{htdef17},</if>
+            <if test="htdef18 != null">htdef18 = #{htdef18},</if>
+            <if test="htdef19 != null">htdef19 = #{htdef19},</if>
+            <if test="htdef20 != null">htdef20 = #{htdef20},</if>
+        </set>
+        where cClassCode = #{cClassCode}
+    </update>
+
+</mapper>

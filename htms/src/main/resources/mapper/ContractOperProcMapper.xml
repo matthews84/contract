@@ -1,0 +1,141 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whxisoft.mapper.ContractOperProcMapper">
+    <select id="operContract" parameterType="ContractOperProc" statementType="CALLABLE" resultType="string">
+        {
+        call P_HS_HT_CONTRACTOPER(
+        #{operType,mode=IN,jdbcType=NVARCHAR},
+        #{contractInfo,mode=IN,jdbcType=NVARCHAR},
+        #{contractItem,mode=IN,jdbcType=NVARCHAR},
+        #{contractPay,mode=IN,jdbcType=NVARCHAR},
+        #{contractCaluse,mode=IN,jdbcType=NVARCHAR},
+        #{contractMemo,mode=IN,jdbcType=NVARCHAR},
+        #{contractExt,mode=IN,jdbcType=NVARCHAR},
+        #{reqInfo,mode=IN,jdbcType=NVARCHAR},
+        #{resInfo,mode=OUT,jdbcType=NVARCHAR}
+        )
+        }
+    </select>
+
+    <select id="queryContract" parameterType="string" resultType="CmContract">
+        select
+        t.GUID,t.strContractID,t.strContractGrp,t.strContractType,t.strContractKind,t.strContractName,t.strBisectionUnit,t.strParentID,t.strRepair,t.strBisectionPerson,t.strContractOrderDate,t.strContractStartDate,t.strContractEndDate,t.strContractDesc,t.dblMassassureScale,t.dblMassassure,t.cDefine1,t.cDefine2,t.cDefine3,t.cDefine4,t.cDefine5,t.cDefine6,t.cDefine7,t.cDefine8,t.cDefine9,t.cDefine10,t.cDefine11,t.cDefine12,t.cDefine13,t.cDefine14,t.cDefine15,t.cDefine16,t.strSetupPerson,t.strSetupDate,t.strEndCasePerson,t.strEndCaseDate,t.strInurePerson,t.strInureDate,t.strDeptID,t.strPersonID,t.intVaryID,t.strVaryCauseID,t.dtVaryDate,t.strVaryPersonID,t.strVaryPassPersonID,t.intPre,t.strWay,t.strCurrency,t.dblExchange,t.strVaryPerson,t.strSpare1,t.strSpare2,t.strSpare3,t.strSource,t.dblTotalCurrency,t.dblExecCurrency,t.dblTotalQuantity,t.dblExecQuqantity,t.cBusType,t.cSCCode,t.cGatheringPlan,t.IsWfControlled,t.IverifyState,t.IreturnCount,t.intAuditSymbol,t.cZbjComputeMode,t.dtZbjStartDate,t.dtZbjEndDate,t.bUseStage,t.cStageGroupCode,t.dtCreateTime,t.dtModifyTime,t.dtModifyDate,t.dtEffectTime,t.cModifer,t.dtVaryCreateDate,t.dtVaryCreateTime,t.dtVaryModifyTime,t.dtVaryModifyDate,t.dtVaryEffectTime,t.cVaryModifer,t.iStatus,t.intExecControlType,t.cExecControlVouch,t.iPrintCount,t.iincotermid,t.dlastladedate,t.csportcode,t.ctportcode,t.caportcode,t.contractId,t.contractStatus,t.dr,t.ts
+        from ht_cm_contract t where t.guid = #{guid}
+    </select>
+
+    <select id="queryContractItem" parameterType="string" resultType="CmContractItem">
+        select t.strCode, t.strName, t.dblQuantity, t.strMeasureUnit, t.dblPriceRMB,
+        t.dblSumRMB, t.dtStartDate, t.dtEndDate, t.strMemo, t.cid, t.pid, t.contractId, t.contractRowId
+        from ht_cm_contract_item t where t.guid = #{guid}
+    </select>
+
+    <select id="queryContractCaluse" parameterType="string" resultType="CmContractCaluse">
+        select
+        t.strCaluseClass,t.strName,t.strMemo,t.strContractID,t.strSpare1,t.strSpare2,t.strSpare3,t.cDefine22,t.cDefine23,t.cDefine24,t.cDefine25,t.cDefine26,t.cDefine27,t.cDefine28,t.cDefine29,t.cDefine30,t.cDefine31,t.cDefine32,t.cDefine33,t.cDefine34,t.cDefine35,t.cDefine36,t.cDefine37,t.contractId,t.contractRowId,t.dr,t.ts
+        from ht_cm_contract_caluse t where t.guid = #{guid}
+    </select>
+
+    <select id="queryContractExt" parameterType="string" resultType="CmContractExt">
+        select
+        t.strID,t.strName,t.strExplain,t.strPath,t.strContractID,t.strSpare1,t.strSpare2,t.strSpare3,t.strFileOnServer,t.cDefine22,t.cDefine23,t.cDefine24,t.cDefine25,t.cDefine26,t.cDefine27,t.cDefine28,t.cDefine29,t.cDefine30,t.cDefine31,t.cDefine32,t.cDefine33,t.cDefine34,t.cDefine35,t.cDefine36,t.cDefine37,t.contractId,t.contractRowId,t.dr,t.ts
+        from ht_cm_contract_ext t where t.guid = #{guid}
+    </select>
+
+    <select id="queryContractPay" parameterType="string" resultType="CmContractPay">
+        select
+        t.lngRowID,t.dtPayDate,t.dblPayRatio,t.dblPayCurrency,t.strSettleStyleID,t.strPayFactor,t.strExp,t.dblTotalCurrency,t.dblExecCurrency,t.dblTotalQuantity,t.dblExecQuqantity,t.strContractID,t.strSpare1,t.strSpare2,t.strSpare3,t.cItemCode,t.iItemPercent,t.cStageGroupCode,t.cStageCode,t.dtStageExpectedEndDate,t.dblPayCurrencyBenBi,t.cDefine22,t.cDefine23,t.cDefine24,t.cDefine25,t.cDefine26,t.cDefine27,t.cDefine28,t.cDefine29,t.cDefine30,t.cDefine31,t.cDefine32,t.cDefine33,t.cDefine34,t.cDefine35,t.cDefine36,t.cDefine37,t.contractId,t.contractRowId,t.dr,t.ts
+        from ht_cm_contract_pay t where t.guid = #{guid}
+    </select>
+
+    <select id="queryContractMemo" parameterType="string" resultType="CmContractMemo">
+        select
+        t.strMemorabiliaID,t.strMemorabilia,t.strContractID,t.strWGDate,t.strEndDate,t.strSpare1,t.strSpare2,t.strSpare3,t.cOperator,t.cOperatorCode,t.cDefine22,t.cDefine23,t.cDefine24,t.cDefine25,t.cDefine26,t.cDefine27,t.cDefine28,t.cDefine29,t.cDefine30,t.cDefine31,t.cDefine32,t.cDefine33,t.cDefine34,t.cDefine35,t.cDefine36,t.cDefine37,t.contractId,t.contractRowId,t.dr,t.ts
+        from ht_cm_contract_memo t where t.guid = #{guid}
+    </select>
+
+    <update id="updateContractStatus" parameterType="string">
+        update ht_cm_contract set contractStatus=#{contractStatus}, iStatus=#{contractStatus} where guid = #{guid}
+    </update>
+
+    <select id="checkContractId" resultType="int">
+        select count(*) from ht_cm_contract where strContractID = #{contractId}
+    </select>
+
+    <select id="getContractKind" resultType="CmType">
+        select * from ht_cm_type
+        <where>
+            <if test="contractType != null and contractType != '' or contractType == 0">
+                cTypeCode = #{contractType}
+            </if>
+        </where>
+    </select>
+
+    <select id="getContractType" resultType="CmType">
+        select * from ht_cm_type
+        <where>
+            <if test="contractKind != null and contractKind != '' or contractKind == 0">
+                cCharacter = #{contractKind}
+            </if>
+        </where>
+    </select>
+
+    <!--查询历史合同-->
+    <select id="queryOldContract" parameterType="string" resultType="CmContract">
+        select top 1 * from (select
+        t.GUID,t.strContractID,t.strContractGrp,t.strContractType,t.strContractKind,t.strContractName,t.strBisectionUnit,t.strParentID,t.strRepair,t.strBisectionPerson,t.strContractOrderDate,t.strContractStartDate,t.strContractEndDate,t.strContractDesc,t.dblMassassureScale,t.dblMassassure,t.cDefine1,t.cDefine2,t.cDefine3,t.cDefine4,t.cDefine5,t.cDefine6,t.cDefine7,t.cDefine8,t.cDefine9,t.cDefine10,t.cDefine11,t.cDefine12,t.cDefine13,t.cDefine14,t.cDefine15,t.cDefine16,t.strSetupPerson,t.strSetupDate,t.strEndCasePerson,t.strEndCaseDate,t.strInurePerson,t.strInureDate,t.strDeptID,t.strPersonID,t.intVaryID,t.strVaryCauseID,t.dtVaryDate,t.strVaryPersonID,t.strVaryPassPersonID,t.intPre,t.strWay,t.strCurrency,t.dblExchange,t.strVaryPerson,t.strSpare1,t.strSpare2,t.strSpare3,t.strSource,t.dblTotalCurrency,t.dblExecCurrency,t.dblTotalQuantity,t.dblExecQuqantity,t.cBusType,t.cSCCode,t.cGatheringPlan,t.IsWfControlled,t.IverifyState,t.IreturnCount,t.intAuditSymbol,t.cZbjComputeMode,t.dtZbjStartDate,t.dtZbjEndDate,t.bUseStage,t.cStageGroupCode,t.dtCreateTime,t.dtModifyTime,t.dtModifyDate,t.dtEffectTime,t.cModifer,t.dtVaryCreateDate,t.dtVaryCreateTime,t.dtVaryModifyTime,t.dtVaryModifyDate,t.dtVaryEffectTime,t.cVaryModifer,t.intExecControlType,t.cExecControlVouch,t.iPrintCount
+        from cm_contract_a t where t.guid = #{guid}
+        union
+        select
+        t.GUID,t.strContractID,t.strContractGrp,t.strContractType,t.strContractKind,t.strContractName,t.strBisectionUnit,t.strParentID,t.strRepair,t.strBisectionPerson,t.strContractOrderDate,t.strContractStartDate,t.strContractEndDate,t.strContractDesc,t.dblMassassureScale,t.dblMassassure,t.cDefine1,t.cDefine2,t.cDefine3,t.cDefine4,t.cDefine5,t.cDefine6,t.cDefine7,t.cDefine8,t.cDefine9,t.cDefine10,t.cDefine11,t.cDefine12,t.cDefine13,t.cDefine14,t.cDefine15,t.cDefine16,t.strSetupPerson,t.strSetupDate,t.strEndCasePerson,t.strEndCaseDate,t.strInurePerson,t.strInureDate,t.strDeptID,t.strPersonID,t.intVaryID,t.strVaryCauseID,t.dtVaryDate,t.strVaryPersonID,t.strVaryPassPersonID,t.intPre,t.strWay,t.strCurrency,t.dblExchange,t.strVaryPerson,t.strSpare1,t.strSpare2,t.strSpare3,t.strSource,t.dblTotalCurrency,t.dblExecCurrency,t.dblTotalQuantity,t.dblExecQuqantity,t.cBusType,t.cSCCode,t.cGatheringPlan,t.IsWfControlled,t.IverifyState,t.IreturnCount,t.intAuditSymbol,t.cZbjComputeMode,t.dtZbjStartDate,t.dtZbjEndDate,t.bUseStage,t.cStageGroupCode,t.dtCreateTime,t.dtModifyTime,t.dtModifyDate,t.dtEffectTime,t.cModifer,t.dtVaryCreateDate,t.dtVaryCreateTime,t.dtVaryModifyTime,t.dtVaryModifyDate,t.dtVaryEffectTime,t.cVaryModifer,t.intExecControlType,t.cExecControlVouch,t.iPrintCount
+        from cm_contract_b t where t.guid = #{guid}
+        union
+        select
+        t.GUID,t.strContractID,t.strContractGrp,t.strContractType,t.strContractKind,t.strContractName,t.strBisectionUnit,t.strParentID,t.strRepair,t.strBisectionPerson,t.strContractOrderDate,t.strContractStartDate,t.strContractEndDate,t.strContractDesc,t.dblMassassureScale,t.dblMassassure,t.cDefine1,t.cDefine2,t.cDefine3,t.cDefine4,t.cDefine5,t.cDefine6,t.cDefine7,t.cDefine8,t.cDefine9,t.cDefine10,t.cDefine11,t.cDefine12,t.cDefine13,t.cDefine14,t.cDefine15,t.cDefine16,t.strSetupPerson,t.strSetupDate,t.strEndCasePerson,t.strEndCaseDate,t.strInurePerson,t.strInureDate,t.strDeptID,t.strPersonID,t.intVaryID,t.strVaryCauseID,t.dtVaryDate,t.strVaryPersonID,t.strVaryPassPersonID,t.intPre,t.strWay,t.strCurrency,t.dblExchange,t.strVaryPerson,t.strSpare1,t.strSpare2,t.strSpare3,t.strSource,t.dblTotalCurrency,t.dblExecCurrency,t.dblTotalQuantity,t.dblExecQuqantity,t.cBusType,t.cSCCode,t.cGatheringPlan,t.IsWfControlled,t.IverifyState,t.IreturnCount,t.intAuditSymbol,t.cZbjComputeMode,t.dtZbjStartDate,t.dtZbjEndDate,t.bUseStage,t.cStageGroupCode,t.dtCreateTime,t.dtModifyTime,t.dtModifyDate,t.dtEffectTime,t.cModifer,t.dtVaryCreateDate,t.dtVaryCreateTime,t.dtVaryModifyTime,t.dtVaryModifyDate,t.dtVaryEffectTime,t.cVaryModifer,t.intExecControlType,t.cExecControlVouch,t.iPrintCount
+        from cm_contract_c t where t.guid = #{guid}) as t
+    </select>
+
+    <select id="queryOldContractItem" parameterType="string" resultType="CmContractItem">
+        select t.strCode, t.strName, t.dblQuantity, t.strMeasureUnit, t.dblPriceRMB,
+        t.dblSumRMB, t.dtStartDate, t.dtEndDate, t.strMemo
+        from cm_contract_item t where t.guid = #{guid}
+    </select>
+
+    <select id="queryOldContractCaluse" parameterType="string" resultType="CmContractCaluse">
+        select
+        t.strCaluseClass,t.strName,t.strMemo,t.strContractID,t.strSpare1,t.strSpare2,t.strSpare3
+        from cm_contract_caluse_a t where t.guid = #{guid}
+        union
+        select
+        t.strCaluseClass,t.strName,t.strMemo,t.strContractID,t.strSpare1,t.strSpare2,t.strSpare3
+        from cm_contract_caluse_b t where t.guid = #{guid}
+        union
+        select
+        t.strCaluseClass,t.strName,t.strMemo,t.strContractID,t.strSpare1,t.strSpare2,t.strSpare3
+        from cm_contract_caluse_c t where t.guid = #{guid}
+    </select>
+
+    <select id="queryOldContractExt" parameterType="string" resultType="CmContractExt">
+        select
+        t.strID,t.strName,t.strExplain,t.strPath,t.strContractID,t.strSpare1,t.strSpare2,t.strSpare3,t.strFileOnServer,t.cDefine22,t.cDefine23,t.cDefine24,t.cDefine25,t.cDefine26,t.cDefine27,t.cDefine28,t.cDefine29,t.cDefine30,t.cDefine31,t.cDefine32,t.cDefine33,t.cDefine34,t.cDefine35,t.cDefine36,t.cDefine37
+        from cm_contract_ext t where t.guid = #{guid}
+    </select>
+
+    <select id="queryOldContractPay" parameterType="string" resultType="CmContractPay">
+        select
+        t.lngRowID,t.dtPayDate,t.dblPayRatio,t.dblPayCurrency,t.strSettleStyleID,t.strPayFactor,t.strExp,t.dblTotalCurrency,t.dblExecCurrency,t.dblTotalQuantity,t.dblExecQuqantity,t.strContractID,t.strSpare1,t.strSpare2,t.strSpare3,t.cItemCode,t.iItemPercent,t.cStageGroupCode,t.cStageCode,t.dtStageExpectedEndDate,t.dblPayCurrencyBenBi,t.cDefine22,t.cDefine23,t.cDefine24,t.cDefine25,t.cDefine26,t.cDefine27,t.cDefine28,t.cDefine29,t.cDefine30,t.cDefine31,t.cDefine32,t.cDefine33,t.cDefine34,t.cDefine35,t.cDefine36,t.cDefine37
+        from cm_contract_pay t where t.guid = #{guid}
+    </select>
+
+    <select id="queryOldContractMemo" parameterType="string" resultType="CmContractMemo">
+        select
+        t.strMemorabiliaID,t.strMemorabilia,t.strContractID,t.strWGDate,t.strEndDate,t.strSpare1,t.strSpare2,t.strSpare3,t.cOperator,t.cOperatorCode,t.cDefine22,t.cDefine23,t.cDefine24,t.cDefine25,t.cDefine26,t.cDefine27,t.cDefine28,t.cDefine29,t.cDefine30,t.cDefine31,t.cDefine32,t.cDefine33,t.cDefine34,t.cDefine35,t.cDefine36,t.cDefine37
+        from cm_contract_memo t where t.guid = #{guid}
+    </select>
+
+
+    <select id="getContractId" resultType="string">
+        select max(substring(strContractID,11,13)) as strContractID  from HT_CM_Contract where strContractID like convert(varchar(100), getdate(), 112)+'%'
+    </select>
+</mapper>

@@ -1,0 +1,209 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whxisoft.mapper.CmFundPlandsMapper">
+    <select id="getByCond" resultType="CmFundPlans" >
+        select * from HT_CM_FundPlan
+        <where>
+            <if test="search!=null and search!=''">
+                ${search}
+            </if>
+        </where>
+    </select>
+
+    <select id="getFundPlans" resultType="CmFundPlans" >
+        select * from HT_CM_FundPlan
+        <where>
+            <if test="sql!=null and sql!=''">
+                ${sql}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryFundPlands" resultType="CmFundPlans">
+         select * from HT_CM_FundPlan
+        <where>
+             strFundPlanID = #{strFundPlanID}
+        </where>
+    </select>
+
+    <select id="queryFD" resultType="CmFundPlans">
+        select * from HT_CM_FundPlan
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
+    <select id="queryInfo" resultType="CmFundPlansInfo">
+        SELECT
+            a.id,
+            a.strFundPlanID,
+            a.strContractID,
+            a.strContractName,
+            a.strContractType,
+            a.strBisectionUnit,
+            a.strContractStartDate,
+            a.strContractEndDate,
+            a.dblPayCurrency,
+            SUM(c.decRMB) htdef1,
+            ((a.dblPayCurrency)-(SUM(c.decRMB))) htdef2,
+            a.strContractRemark
+        FROM
+            HT_CM_FundPlan a
+        LEFT JOIN HT_CM_Balance b ON a.strContractID = b.cContractID
+        LEFT JOIN HT_CM_Balances c ON b.cBalanceID = c.cBalanceID
+        <where>
+            <if test="sql!=null and sql!=''">
+                ${sql}
+            </if>
+        </where>
+        GROUP BY
+            a.ID,
+            a.strFundPlanID,
+            a.strContractID,
+            a.strContractName,
+            a.strContractType,
+            a.strBisectionUnit,
+            a.strContractStartDate,
+            a.strContractEndDate,
+            a.dblPayCurrency,
+            a.strContractRemark
+
+    </select>
+
+    <select id="getById" resultType="CmFundPlans">
+        select * from HT_CM_FundPlan
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
+    <select id="queryStrFundPlanID" resultType="string">
+        select MAX(strFundPlanID) from HT_CM_FundPlan
+        <where>
+                strFundPlanID like '%'+#{strFundPlanID}+'%'
+        </where>
+    </select>
+
+    <insert id="save" parameterType="CmFundPlans">
+        insert into HT_CM_FundPlan
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="strFundPlanID != null">strFundPlanID,</if>
+            <if test="strSetupDate != null">strSetupDate,</if>
+            <if test="strSetupPerson != null">strSetupPerson,</if>
+            <if test="strFundPlanRemark != null">strFundPlanRemark,</if>
+            <if test="strContractID != null">strContractID,</if>
+            <if test="strContractName != null">strContractName,</if>
+            <if test="strContractType != null">strContractType,</if>
+            <if test="strBisectionUnit != null">strBisectionUnit,</if>
+            <if test="strContractStartDate != null">strContractStartDate,</if>
+            <if test="strContractEndDate != null">strContractEndDate,</if>
+            <if test="dblPayCurrency != null">dblPayCurrency,</if>
+            <if test="strContractRemark != null">strContractRemark,</if>
+            <if test="dr != null">dr,</if>
+            <if test="ts != null">ts,</if>
+            <if test="htdef1 != null">htdef1,</if>
+            <if test="htdef2 != null">htdef2,</if>
+            <if test="htdef3 != null">htdef3,</if>
+            <if test="htdef4 != null">htdef4,</if>
+            <if test="htdef5 != null">htdef5,</if>
+            <if test="htdef6 != null">htdef6,</if>
+            <if test="htdef7 != null">htdef7,</if>
+            <if test="htdef8 != null">htdef8,</if>
+            <if test="htdef9 != null">htdef9,</if>
+            <if test="htdef10 != null">htdef10,</if>
+            <if test="htdef11 != null">htdef11,</if>
+            <if test="htdef12 != null">htdef12,</if>
+            <if test="htdef13 != null">htdef13,</if>
+            <if test="htdef14 != null">htdef14,</if>
+            <if test="htdef15 != null">htdef15,</if>
+            <if test="htdef16 != null">htdef16,</if>
+            <if test="htdef17 != null">htdef17,</if>
+            <if test="htdef18 != null">htdef18,</if>
+            <if test="htdef19 != null">htdef19,</if>
+            <if test="htdef20 != null">htdef20,</if>
+        </trim>
+        values
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="strFundPlanID != null">#{strFundPlanID},</if>
+            <if test="strSetupDate != null">#{strSetupDate},</if>
+            <if test="strSetupPerson != null">#{strSetupPerson},</if>
+            <if test="strFundPlanRemark != null">#{strFundPlanRemark},</if>
+            <if test="strContractID != null">#{strContractID},</if>
+            <if test="strContractName != null">#{strContractName},</if>
+            <if test="strContractType != null">#{strContractType},</if>
+            <if test="strBisectionUnit != null">#{strBisectionUnit},</if>
+            <if test="strContractStartDate != null">#{strContractStartDate},</if>
+            <if test="strContractEndDate != null">#{strContractEndDate},</if>
+            <if test="dblPayCurrency != null">#{dblPayCurrency},</if>
+            <if test="strContractRemark != null">#{strContractRemark},</if>
+            <if test="dr != null">#{dr},</if>
+            <if test="ts != null">#{ts},</if>
+            <if test="htdef1 != null">#{htdef1},</if>
+            <if test="htdef2 != null">#{htdef2},</if>
+            <if test="htdef3 != null">#{htdef3},</if>
+            <if test="htdef4 != null">#{htdef4},</if>
+            <if test="htdef5 != null">#{htdef5},</if>
+            <if test="htdef6 != null">#{htdef6},</if>
+            <if test="htdef7 != null">#{htdef7},</if>
+            <if test="htdef8 != null">#{htdef8},</if>
+            <if test="htdef9 != null">#{htdef9},</if>
+            <if test="htdef10 != null">#{htdef10},</if>
+            <if test="htdef11 != null">#{htdef11},</if>
+            <if test="htdef12 != null">#{htdef12},</if>
+            <if test="htdef13 != null">#{htdef13},</if>
+            <if test="htdef14 != null">#{htdef14},</if>
+            <if test="htdef15 != null">#{htdef15},</if>
+            <if test="htdef16 != null">#{htdef16},</if>
+            <if test="htdef17 != null">#{htdef17},</if>
+            <if test="htdef18 != null">#{htdef18},</if>
+            <if test="htdef19 != null">#{htdef19},</if>
+            <if test="htdef20 != null">#{htdef20},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="CmFundPlans">
+        update HT_CM_FundPlan
+        <set>
+        <if test="strFundPlanID != null">strFundPlanID = #{strFundPlanID},</if>
+        <if test="strSetupDate != null">strSetupDate = #{strSetupDate},</if>
+        <if test="strSetupPerson != null">strSetupPerson = #{strSetupPerson},</if>
+        <if test="strFundPlanRemark != null">strFundPlanRemark = #{strFundPlanRemark},</if>
+        <if test="strContractID != null">strContractID = #{strContractID},</if>
+        <if test="strContractName != null">strContractName = #{strContractName},</if>
+        <if test="strContractType != null">strContractType = #{strContractType},</if>
+        <if test="strBisectionUnit != null">strBisectionUnit = #{strBisectionUnit},</if>
+        <if test="strContractStartDate != null">strContractStartDate = #{strContractStartDate},</if>
+        <if test="strContractEndDate != null">strContractEndDate = #{strContractEndDate},</if>
+        <if test="dblPayCurrency != null">dblPayCurrency = #{dblPayCurrency},</if>
+        <if test="strContractRemark != null">strContractRemark = #{strContractRemark},</if>
+        <if test="dr != null">dr = #{dr},</if>
+        <if test="ts != null">ts = #{ts},</if>
+        <if test="htdef1 != null">htdef1 = #{htdef1},</if>
+        <if test="htdef2 != null">htdef2 = #{htdef2},</if>
+        <if test="htdef3 != null">htdef3 = #{htdef3},</if>
+        <if test="htdef4 != null">htdef4 = #{htdef4},</if>
+        <if test="htdef5 != null">htdef5 = #{htdef5},</if>
+        <if test="htdef6 != null">htdef6 = #{htdef6},</if>
+        <if test="htdef7 != null">htdef7 = #{htdef7},</if>
+        <if test="htdef8 != null">htdef8 = #{htdef8},</if>
+        <if test="htdef9 != null">htdef9 = #{htdef9},</if>
+        <if test="htdef10 != null">htdef10 = #{htdef10},</if>
+        <if test="htdef11 != null">htdef11 = #{htdef11},</if>
+        <if test="htdef12 != null">htdef12 = #{htdef12},</if>
+        <if test="htdef13 != null">htdef13 = #{htdef13},</if>
+        <if test="htdef14 != null">htdef14 = #{htdef14},</if>
+        <if test="htdef15 != null">htdef15 = #{htdef15},</if>
+        <if test="htdef16 != null">htdef16 = #{htdef16},</if>
+        <if test="htdef17 != null">htdef17 = #{htdef17},</if>
+        <if test="htdef18 != null">htdef18 = #{htdef18},</if>
+        <if test="htdef19 != null">htdef19 = #{htdef19},</if>
+        <if test="htdef20 != null">htdef20 = #{htdef20},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from HT_CM_FundPlan where id = #{ids}
+    </delete>
+</mapper>

@@ -1,0 +1,337 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whxisoft.mapper.CmBalanceMapper">
+
+    <!--<select id="getCmBalanceById" resultType="CmBalance">
+      SELECT * FROM HT_CM_Balance  where GUID in
+      (SELECT cCode FROM HT_CM_Balances where Guid=#{BalancesGuid})
+  </select>-->
+    <select id="getCmBalanceById" resultType="ContractAndItemAndCmBalance">
+        select t2.GUID,t1.strContractID,t1.strContractName,t1.dblTotalCurrency,t1.dblTotalQuantity,t.RowGUID,t.strCode,t.strName,t.strMeasureUnit,t.dblQuantity,t.dblPriceRMB,t.dblSumRMB,t2.cBalanceID,t2.decRateMoney,t2.BalancesGuid,t2.decCount,t2.decRateUnitPrice
+        from HT_CM_Contract_Item t left join HT_CM_Contract t1 on t.GUID = t1.GUID left join HT_CM_Balances t2 on t2.id=t.ID
+        where t2.decCount is not null and t2.decRateUnitPrice is not null and t2.decRateMoney is not null
+        and t2.Guid=#{BalancesGuid}
+    </select>
+
+  <select id="getByCond" resultType="CmBalances">
+      SELECT * FROM HT_CM_Balances
+      <where>
+          <if test="search!=null and search!=''">
+              ${search}
+          </if>
+      </where>
+  </select>
+  <!-- 新增CmBalance -->
+    <insert id="save" parameterType="CmBalance">
+        insert into ht_cm_balance
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="cBalanceID != null">cBalanceID,</if>
+            <if test="GUID != null">GUID,</if>
+            <if test="cContractID != null">cContractID,</if>
+            <if test="cDeptID != null">cDeptID,</if>
+            <if test="cFunctionaryID != null">cFunctionaryID,</if>
+            <if test="cBalancelTypeID != null">cBalancelTypeID,</if>
+            <if test="decExchangeRate != null">decExchangeRate,</if>
+            <if test="strContractName != null">strContractName,</if>
+            <if test="cDefine2 != null">cDefine2,</if>
+            <if test="cDefine3 != null">cDefine3,</if>
+            <if test="cDefine4 != null">cDefine4,</if>
+            <if test="cDefine5 != null">cDefine5,</if>
+            <if test="cDefine6 != null">cDefine6,</if>
+            <if test="strBisectionUnit != null">strBisectionUnit,</if>
+            <if test="cDefine8 != null">cDefine8,</if>
+            <if test="cDefine9 != null">cDefine9,</if>
+            <if test="cDefine10 != null">cDefine10,</if>
+            <if test="cDefine11 != null">cDefine11,</if>
+            <if test="cDefine12 != null">cDefine12,</if>
+            <if test="cDefine13 != null">cDefine13,</if>
+            <if test="cDefine14 != null">cDefine14,</if>
+            <if test="cDefine15 != null">cDefine15,</if>
+            <if test="cDefine16 != null">cDefine16,</if>
+            <if test="cBalanceDetails != null">cBalanceDetails,</if>
+            <if test="cProducer != null">cProducer,</if>
+            <if test="dtProduceDate != null">dtProduceDate,</if>
+            <if test="cAuditer != null">cAuditer,</if>
+            <if test="dtAuditeDate != null">dtAuditeDate,</if>
+            <if test="cSuperviseDept != null">cSuperviseDept,</if>
+            <if test="intTemplateShowID != null">intTemplateShowID,</if>
+            <if test="intTemplatePrintID != null">intTemplatePrintID,</if>
+            <if test="Modifytamp != null">Modifytamp,</if>
+            <if test="bitUseFlag != null">bitUseFlag,</if>
+            <if test="strSpare1 != null">strSpare1,</if>
+            <if test="strSpare2 != null">strSpare2,</if>
+            <if test="strSpare3 != null">strSpare3,</if>
+            <if test="intPre != null">intPre,</if>
+            <if test="cAdmin != null">cAdmin,</if>
+            <if test="dtAdminDate != null">dtAdminDate,</if>
+            <if test="cPZID != null">cPZID,</if>
+            <if test="cPayCode != null">cPayCode,</if>
+            <if test="bd_c != null">bd_c,</if>
+            <if test="cDefine != null">cDefine,</if>
+            <if test="cGatheringPlan != null">cGatheringPlan,</if>
+            <if test="dCreditStart != null">dCreditStart,</if>
+            <if test="iCreditPeriod != null">iCreditPeriod,</if>
+            <if test="dGatheringDate != null">dGatheringDate,</if>
+            <if test="bCredit != null">bCredit,</if>
+            <if test="cBalanceSource != null">cBalanceSource,</if>
+            <if test="cJsdType != null">cJsdType,</if>
+            <if test="cSrcBalanceID != null">cSrcBalanceID,</if>
+            <if test="intVaryID != null">intVaryID,</if>
+            <if test="dtCreateTime != null">dtCreateTime,</if>
+            <if test="dtModifyTime != null">dtModifyTime,</if>
+            <if test="dtModifyDate != null">dtModifyDate,</if>
+            <if test="dtEffectTime != null">dtEffectTime,</if>
+            <if test="cModifer != null">cModifer,</if>
+            <if test="BalanceGuid != null">BalanceGuid,</if>
+            <if test="IsWfControlled != null">IsWfControlled,</if>
+            <if test="iverifystate != null">iverifystate,</if>
+            <if test="ireturncount != null">ireturncount,</if>
+            <if test="cPZNum != null">cPZNum,</if>
+            <if test="iPrintCount != null">iPrintCount,</if>
+            <if test="doutbilldate != null">doutbilldate,</if>
+            <if test="DR != null">DR,</if>
+            <if test="TS != null">TS,</if>
+            <if test="HTDEF1 != null">HTDEF1,</if>
+            <if test="HTDEF2 != null">HTDEF2,</if>
+            <if test="HTDEF3 != null">HTDEF3,</if>
+            <if test="HTDEF4 != null">HTDEF4,</if>
+            <if test="HTDEF5 != null">HTDEF5,</if>
+            <if test="HTDEF6 != null">HTDEF6,</if>
+            <if test="HTDEF7 != null">HTDEF7,</if>
+            <if test="HTDEF8 != null">HTDEF8,</if>
+            <if test="HTDEF9 != null">HTDEF9,</if>
+            <if test="HTDEF10 != null">HTDEF10,</if>
+            <if test="HTDEF11 != null">HTDEF11,</if>
+            <if test="HTDEF12 != null">HTDEF12,</if>
+            <if test="HTDEF13 != null">HTDEF13,</if>
+            <if test="HTDEF14 != null">HTDEF14,</if>
+            <if test="HTDEF15 != null">HTDEF15,</if>
+            <if test="HTDEF16 != null">HTDEF16,</if>
+            <if test="HTDEF17 != null">HTDEF17,</if>
+            <if test="HTDEF18 != null">HTDEF18,</if>
+            <if test="HTDEF19 != null">HTDEF19,</if>
+            <if test="HTDEF20 != null">HTDEF20,</if>
+        </trim>
+        values
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="cBalanceID != null">#{cBalanceID},</if>
+            <if test="GUID != null">#{GUID},</if>
+            <if test="cContractID != null">#{cContractID},</if>
+            <if test="cDeptID != null">#{cDeptID},</if>
+            <if test="cFunctionaryID != null">#{cFunctionaryID},</if>
+            <if test="cBalancelTypeID != null">#{cBalancelTypeID},</if>
+            <if test="decExchangeRate != null">#{decExchangeRate},</if>
+            <if test="strContractName != null">#{strContractName},</if>
+            <if test="cDefine2 != null">#{cDefine2},</if>
+            <if test="cDefine3 != null">#{cDefine3},</if>
+            <if test="cDefine4 != null">#{cDefine4},</if>
+            <if test="cDefine5 != null">#{cDefine5},</if>
+            <if test="cDefine6 != null">#{cDefine6},</if>
+            <if test="strBisectionUnit != null">#{strBisectionUnit},</if>
+            <if test="cDefine8 != null">#{cDefine8},</if>
+            <if test="cDefine9 != null">#{cDefine9},</if>
+            <if test="cDefine10 != null">#{cDefine10},</if>
+            <if test="cDefine11 != null">#{cDefine11},</if>
+            <if test="cDefine12 != null">#{cDefine12},</if>
+            <if test="cDefine13 != null">#{cDefine13},</if>
+            <if test="cDefine14 != null">#{cDefine14},</if>
+            <if test="cDefine15 != null">#{cDefine15},</if>
+            <if test="cDefine16 != null">#{cDefine16},</if>
+            <if test="cBalanceDetails != null">#{cBalanceDetails},</if>
+            <if test="cProducer != null">#{cProducer},</if>
+            <if test="dtProduceDate != null">#{dtProduceDate},</if>
+            <if test="cAuditer != null">#{cAuditer},</if>
+            <if test="dtAuditeDate != null">#{dtAuditeDate},</if>
+            <if test="cSuperviseDept != null">#{cSuperviseDept},</if>
+            <if test="intTemplateShowID != null">#{intTemplateShowID},</if>
+            <if test="intTemplatePrintID != null">#{intTemplatePrintID},</if>
+            <if test="Modifytamp != null">#{Modifytamp},</if>
+            <if test="bitUseFlag != null">#{bitUseFlag},</if>
+            <if test="strSpare1 != null">#{strSpare1},</if>
+            <if test="strSpare2 != null">#{strSpare2},</if>
+            <if test="strSpare3 != null">#{strSpare3},</if>
+            <if test="intPre != null">#{intPre},</if>
+            <if test="cAdmin != null">#{cAdmin},</if>
+            <if test="dtAdminDate != null">#{dtAdminDate},</if>
+            <if test="cPZID != null">#{cPZID},</if>
+            <if test="cPayCode != null">#{cPayCode},</if>
+            <if test="bd_c != null">#{bd_c},</if>
+            <if test="cDefine != null">#{cDefine},</if>
+            <if test="cGatheringPlan != null">#{cGatheringPlan},</if>
+            <if test="dCreditStart != null">#{dCreditStart},</if>
+            <if test="iCreditPeriod != null">#{iCreditPeriod},</if>
+            <if test="dGatheringDate != null">#{dGatheringDate},</if>
+            <if test="bCredit != null">#{bCredit},</if>
+            <if test="cBalanceSource != null">#{cBalanceSource},</if>
+            <if test="cJsdType != null">#{cJsdType},</if>
+            <if test="cSrcBalanceID != null">#{cSrcBalanceID},</if>
+            <if test="intVaryID != null">#{intVaryID},</if>
+            <if test="dtCreateTime != null">#{dtCreateTime},</if>
+            <if test="dtModifyTime != null">#{dtModifyTime},</if>
+            <if test="dtModifyDate != null">#{dtModifyDate},</if>
+            <if test="dtEffectTime != null">#{dtEffectTime},</if>
+            <if test="cModifer != null">#{cModifer},</if>
+            <if test="BalanceGuid != null">#{BalanceGuid},</if>
+            <if test="IsWfControlled != null">#{IsWfControlled},</if>
+            <if test="iverifystate != null">#{iverifystate},</if>
+            <if test="ireturncount != null">#{ireturncount},</if>
+            <if test="cPZNum != null">#{cPZNum},</if>
+            <if test="iPrintCount != null">#{iPrintCount},</if>
+            <if test="doutbilldate != null">#{doutbilldate},</if>
+            <if test="DR != null">#{DR},</if>
+            <if test="TS != null">#{TS},</if>
+            <if test="HTDEF1 != null">#{HTDEF1},</if>
+            <if test="HTDEF2 != null">#{HTDEF2},</if>
+            <if test="HTDEF3 != null">#{HTDEF3},</if>
+            <if test="HTDEF4 != null">#{HTDEF4},</if>
+            <if test="HTDEF5 != null">#{HTDEF5},</if>
+            <if test="HTDEF6 != null">#{HTDEF6},</if>
+            <if test="HTDEF7 != null">#{HTDEF7},</if>
+            <if test="HTDEF8 != null">#{HTDEF8},</if>
+            <if test="HTDEF9 != null">#{HTDEF9},</if>
+            <if test="HTDEF10 != null">#{HTDEF10},</if>
+            <if test="HTDEF11 != null">#{HTDEF11},</if>
+            <if test="HTDEF12 != null">#{HTDEF12},</if>
+            <if test="HTDEF13 != null">#{HTDEF13},</if>
+            <if test="HTDEF14 != null">#{HTDEF14},</if>
+            <if test="HTDEF15 != null">#{HTDEF15},</if>
+            <if test="HTDEF16 != null">#{HTDEF16},</if>
+            <if test="HTDEF17 != null">#{HTDEF17},</if>
+            <if test="HTDEF18 != null">#{HTDEF18},</if>
+            <if test="HTDEF19 != null">#{HTDEF19},</if>
+            <if test="HTDEF20 != null">#{HTDEF20},</if>
+        </trim>
+    </insert>
+
+    <!-- 修改CmBalance -->
+    <update id="update" parameterType="CmBalance">
+        update ht_cm_balance
+        <set>
+            <if test="GUID!=null">GUID = #{GUID},</if>
+            <if test="cContractID!=null">cContractID = #{cContractID},</if>
+            <if test="cDeptID!=null">cDeptID = #{cDeptID},</if>
+            <if test="cFunctionaryID!=null">cFunctionaryID = #{cFunctionaryID},</if>
+            <if test="cBalancelTypeID!=null">cBalancelTypeID = #{cBalancelTypeID},</if>
+            <if test="decExchangeRate!=null">decExchangeRate = #{decExchangeRate},</if>
+            <if test="strContractName!=null">strContractName = #{strContractName},</if>
+            <if test="cDefine2!=null">cDefine2 = #{cDefine2},</if>
+            <if test="cDefine3!=null">cDefine3 = #{cDefine3},</if>
+            <if test="cDefine4!=null">cDefine4 = #{cDefine4},</if>
+            <if test="cDefine5!=null">cDefine5 = #{cDefine5},</if>
+            <if test="cDefine6!=null">cDefine6 = #{cDefine6},</if>
+            <if test="strBisectionUnit!=null">strBisectionUnit = #{strBisectionUnit},</if>
+            <if test="cDefine8!=null">cDefine8 = #{cDefine8},</if>
+            <if test="cDefine9!=null">cDefine9 = #{cDefine9},</if>
+            <if test="cDefine10!=null">cDefine10 = #{cDefine10},</if>
+            <if test="cDefine11!=null">cDefine11 = #{cDefine11},</if>
+            <if test="cDefine12!=null">cDefine12 = #{cDefine12},</if>
+            <if test="cDefine13!=null">cDefine13 = #{cDefine13},</if>
+            <if test="cDefine14!=null">cDefine14 = #{cDefine14},</if>
+            <if test="cDefine15!=null">cDefine15 = #{cDefine15},</if>
+            <if test="cDefine16!=null">cDefine16 = #{cDefine16},</if>
+            <if test="cBalanceDetails!=null">cBalanceDetails = #{cBalanceDetails},</if>
+            <if test="cProducer!=null">cProducer = #{cProducer},</if>
+            <if test="dtProduceDate!=null">dtProduceDate = #{dtProduceDate},</if>
+            <if test="cAuditer!=null">cAuditer = #{cAuditer},</if>
+            <if test="dtAuditeDate!=null">dtAuditeDate = #{dtAuditeDate},</if>
+            <if test="cSuperviseDept!=null">cSuperviseDept = #{cSuperviseDept},</if>
+            <if test="intTemplateShowID!=null">intTemplateShowID = #{intTemplateShowID},</if>
+            <if test="intTemplatePrintID!=null">intTemplatePrintID = #{intTemplatePrintID},</if>
+            <if test="Modifytamp!=null">Modifytamp = #{Modifytamp},</if>
+            <if test="bitUseFlag!=null">bitUseFlag = #{bitUseFlag},</if>
+            <if test="strSpare1!=null">strSpare1 = #{strSpare1},</if>
+            <if test="strSpare2!=null">strSpare2 = #{strSpare2},</if>
+            <if test="strSpare3!=null">strSpare3 = #{strSpare3},</if>
+            <if test="intPre!=null">intPre = #{intPre},</if>
+            <if test="cAdmin!=null">cAdmin = #{cAdmin},</if>
+            <if test="dtAdminDate!=null">dtAdminDate = #{dtAdminDate},</if>
+            <if test="cPZID!=null">cPZID = #{cPZID},</if>
+            <if test="cPayCode!=null">cPayCode = #{cPayCode},</if>
+            <if test="bd_c!=null">bd_c = #{bd_c},</if>
+            <if test="cDefine!=null">cDefine = #{cDefine},</if>
+            <if test="cGatheringPlan!=null">cGatheringPlan = #{cGatheringPlan},</if>
+            <if test="dCreditStart!=null">dCreditStart = #{dCreditStart},</if>
+            <if test="iCreditPeriod!=null">iCreditPeriod = #{iCreditPeriod},</if>
+            <if test="dGatheringDate!=null">dGatheringDate = #{dGatheringDate},</if>
+            <if test="bCredit!=null">bCredit = #{bCredit},</if>
+            <if test="cBalanceSource!=null">cBalanceSource = #{cBalanceSource},</if>
+            <if test="cJsdType!=null">cJsdType = #{cJsdType},</if>
+            <if test="cSrcBalanceID!=null">cSrcBalanceID = #{cSrcBalanceID},</if>
+            <if test="intVaryID!=null">intVaryID = #{intVaryID},</if>
+            <if test="dtCreateTime!=null">dtCreateTime = #{dtCreateTime},</if>
+            <if test="dtModifyTime!=null">dtModifyTime = #{dtModifyTime},</if>
+            <if test="dtModifyDate!=null">dtModifyDate = #{dtModifyDate},</if>
+            <if test="dtEffectTime!=null">dtEffectTime = #{dtEffectTime},</if>
+            <if test="cModifer!=null">cModifer = #{cModifer},</if>
+            <if test="BalanceGuid!=null">BalanceGuid = #{BalanceGuid},</if>
+            <if test="IsWfControlled!=null">IsWfControlled = #{IsWfControlled},</if>
+            <if test="iverifystate!=null">iverifystate = #{iverifystate},</if>
+            <if test="ireturncount!=null">ireturncount = #{ireturncount},</if>
+            <if test="cPZNum!=null">cPZNum = #{cPZNum},</if>
+            <if test="iPrintCount!=null">iPrintCount = #{iPrintCount},</if>
+            <if test="doutbilldate!=null">doutbilldate = #{doutbilldate},</if>
+            <if test="DR!=null">DR = #{DR},</if>
+            <if test="TS!=null">TS = #{TS},</if>
+            <if test="HTDEF1!=null">HTDEF1 = #{HTDEF1},</if>
+            <if test="HTDEF2!=null">HTDEF2 = #{HTDEF2},</if>
+            <if test="HTDEF3!=null">HTDEF3 = #{HTDEF3},</if>
+            <if test="HTDEF4!=null">HTDEF4 = #{HTDEF4},</if>
+            <if test="HTDEF5!=null">HTDEF5 = #{HTDEF5},</if>
+            <if test="HTDEF6!=null">HTDEF6 = #{HTDEF6},</if>
+            <if test="HTDEF7!=null">HTDEF7 = #{HTDEF7},</if>
+            <if test="HTDEF8!=null">HTDEF8 = #{HTDEF8},</if>
+            <if test="HTDEF9!=null">HTDEF9 = #{HTDEF9},</if>
+            <if test="HTDEF10!=null">HTDEF10 = #{HTDEF10},</if>
+            <if test="HTDEF11!=null">HTDEF11 = #{HTDEF11},</if>
+            <if test="HTDEF12!=null">HTDEF12 = #{HTDEF12},</if>
+            <if test="HTDEF13!=null">HTDEF13 = #{HTDEF13},</if>
+            <if test="HTDEF14!=null">HTDEF14 = #{HTDEF14},</if>
+            <if test="HTDEF15!=null">HTDEF15 = #{HTDEF15},</if>
+            <if test="HTDEF16!=null">HTDEF16 = #{HTDEF16},</if>
+            <if test="HTDEF17!=null">HTDEF17 = #{HTDEF17},</if>
+            <if test="HTDEF18!=null">HTDEF18 = #{HTDEF18},</if>
+            <if test="HTDEF19!=null">HTDEF19 = #{HTDEF19},</if>
+            <if test="HTDEF20!=null">HTDEF20 = #{HTDEF20},</if>
+        </set>
+        where cBalanceID = #{cBalanceID}
+    </update>
+
+<!--  结算单参照查询-->
+    <select id="getReferQuery" resultType="ContractAndItemAndCmBalance">
+        <!--select t1.GUID,t1.strContractID,t1.strContractName,t1.dblTotalCurrency,t.RowGUID,t.strCode,t.strName,t.strMeasureUnit,t.dblQuantity,t.dblPriceRMB,t.dblSumRMB,t2.cBalanceID,t2.decRateMoney,t2.BalancesGuid from
+        HTMS..HT_CM_Contract_Item t , HTMS..HT_CM_Contract t1 ,HTMS..HT_CM_Balances t2 where t.GUID = t1.GUID and t1.GUID = t2.GUID
+        and t.dblQuantity is not null and t.dblPriceRMB is not null and t.dblSumRMB is not null
+        <if test="sql != null and sql != ''">
+            ${sql}
+        </if>-->
+        select t1.GUID,t1.strContractID,t1.strContractName,t1.dblTotalCurrency,t1.dblTotalQuantity,t.RowGUID,t.strCode,t.strName,t.strMeasureUnit,t.dblQuantity,t.dblPriceRMB,t.dblSumRMB,t2.cBalanceID,t2.decRateMoney,t2.BalancesGuid
+        from HT_CM_Contract_Item t left join HT_CM_Contract t1 on t.GUID = t1.GUID left join HT_CM_Balances t2 on t2.id=t.ID
+        <if test="sql != null and sql != ''">
+            ${sql}
+        </if>
+        </select>
+
+    <!--    合同结算单回显结算单信息-->
+    <select id="getQueryByCmBalanceID" resultType="ContractAndCmBalance">
+        select t1.strContractName,t1.strBisectionUnit,t1.dblTotalCurrency,t2.cBalanceID,t2.decRateMoney from HT_CM_Contract t1 ,HT_CM_Balances t2
+        where t1.GUID = t2.GUID
+        <where>
+            <if test="cBalanceID != null and cBalanceID != '' ">
+                #{cBalanceID}
+            </if>
+        </where>
+    </select>
+
+<!--    查询对方单位-->
+    <select id="getstrBisectionUnit" resultType="CmContract">
+        select strBisectionUnit from HT_CM_Contract
+    </select>
+
+
+    <!--删除-->
+    <delete id="delete">
+        delete from HT_CM_Balances where HT_CM_Balances.Guid= #{id};
+    </delete>
+
+</mapper>

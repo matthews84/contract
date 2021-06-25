@@ -1,0 +1,97 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whxisoft.mapper.SmUserRoleMapper">
+    <select id="getByCond" resultType="SmUserRole">
+        select * from IDM_SM_USERROLE
+        <where>
+            <if test="search!=null and search!=''">
+                ${search}
+            </if>
+        </where>
+    </select>
+
+    <!--根据用户的pk_user查询菜单按钮-->
+    <select id="getByMenu" resultType="SmMenu">
+        select * from IDM_SM_MENU c where c.pk_menu in
+        (select b.pk_menu from IDM_SM_ROLEMENU b where b.pk_role in
+        (select a.pk_role from IDM_SM_USERROLE a where a.pk_user = #{pk_user})) and c.lev=#{lev} order by sort
+    </select>
+
+    <!--根据用户pk_user pcode查询所有的按钮-->
+    <select id="getBtn" resultType="SmMenu">
+        select * from IDM_SM_MENU c where c.pk_menu in
+        (select b.pk_menu from IDM_SM_ROLEMENU b where b.pk_role in
+        (select a.pk_role from IDM_SM_USERROLE a where a.pk_user =#{pk_user})) and c.lev=3 and c.enabled=1 and pcode=#{pk_menu} order by
+        sort
+    </select>
+
+    <!--删除关联表-->
+    <delete id="delete">
+        delete from IDM_SM_USERROLE where pk_user = #{id}
+    </delete>
+
+    <!-- 新增UserRole -->
+    <insert id="save" parameterType="SmUserRole">
+        insert into IDM_SM_USERROLE
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="pk_user != null">pk_user,</if>
+            <if test="pk_role != null">pk_role,</if>
+            <if test="ts != null">ts,</if>
+            <if test="idmdef1 != null">idmdef1,</if>
+            <if test="idmdef2 != null">idmdef2,</if>
+            <if test="idmdef3 != null">idmdef3,</if>
+            <if test="idmdef4 != null">idmdef4,</if>
+            <if test="idmdef5 != null">idmdef5,</if>
+            <if test="idmdef6 != null">idmdef6,</if>
+            <if test="idmdef7 != null">idmdef7,</if>
+            <if test="idmdef8 != null">idmdef8,</if>
+            <if test="idmdef9 != null">idmdef9,</if>
+            <if test="idmdef10 != null">idmdef10,</if>
+        </trim>
+        values
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="pk_user != null">#{pk_user},</if>
+            <if test="pk_role != null">#{pk_role},</if>
+            <if test="ts != null">#{ts},</if>
+            <if test="idmdef1 != null">#{idmdef1},</if>
+            <if test="idmdef2 != null">#{idmdef2},</if>
+            <if test="idmdef3 != null">#{idmdef3},</if>
+            <if test="idmdef4 != null">#{idmdef4},</if>
+            <if test="idmdef5 != null">#{idmdef5},</if>
+            <if test="idmdef6 != null">#{idmdef6},</if>
+            <if test="idmdef7 != null">#{idmdef7},</if>
+            <if test="idmdef8 != null">#{idmdef8},</if>
+            <if test="idmdef9 != null">#{idmdef9},</if>
+            <if test="idmdef10 != null">#{idmdef10},</if>
+        </trim>
+    </insert>
+
+    <!-- 修改UserRole -->
+    <update id="update" parameterType="SmUserRole">
+        update IDM_SM_USERROLE
+        <set>
+            <if test="pk_user!=null">pk_user = #{pk_user},</if>
+            <if test="pk_role!=null">pk_role = #{pk_role},</if>
+            <if test="ts!=null">ts = #{ts},</if>
+            <if test="idmdef1!=null">idmdef1 = #{idmdef1},</if>
+            <if test="idmdef2!=null">idmdef2 = #{idmdef2},</if>
+            <if test="idmdef3!=null">idmdef3 = #{idmdef3},</if>
+            <if test="idmdef4!=null">idmdef4 = #{idmdef4},</if>
+            <if test="idmdef5!=null">idmdef5 = #{idmdef5},</if>
+            <if test="idmdef6!=null">idmdef6 = #{idmdef6},</if>
+            <if test="idmdef7!=null">idmdef7 = #{idmdef7},</if>
+            <if test="idmdef8!=null">idmdef8 = #{idmdef8},</if>
+            <if test="idmdef9!=null">idmdef9 = #{idmdef9},</if>
+            <if test="idmdef10!=null">idmdef10 = #{idmdef10},</if>
+        </set>
+        where pk_user_role = #{pk_user_role}
+    </update>
+
+    <select id="query" resultType="SmUserRole">
+        select * from IDM_SM_USERROLE where pk_role = #{pk_role}
+    </select>
+
+
+</mapper>
